@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 960618398}
   - component: {fileID: 960618397}
   - component: {fileID: 960618402}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,8 @@ MonoBehaviour:
     m_Bits: 64
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
+  isBlocking: 0
 --- !u!136 &960618398
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -650,7 +651,7 @@ GameObject:
   - component: {fileID: 1256321919}
   - component: {fileID: 1256321918}
   - component: {fileID: 1256321923}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -677,6 +678,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  isBlocking: 0
 --- !u!136 &1256321919
 CapsuleCollider:
   m_ObjectHideFlags: 0

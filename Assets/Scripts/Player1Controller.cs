@@ -67,12 +67,12 @@ public class Player1Controller : MonoBehaviour
 
         // attack
 
-        Vector3 attackRadius = new Vector3(0.5f, 0.5f);
+        Vector3 attackRadius = new Vector3(0.4f, 0.4f);
         Vector3 attackCenter = attackObject.transform.position;
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if (Physics.CheckBox(attackCenter, attackRadius))
+            if (Physics.CheckBox(attackCenter, attackRadius, this.transform.rotation, playerLayer))
             {
                 if (otherChar.isBlocking == false)
                 {
@@ -94,8 +94,6 @@ public class Player1Controller : MonoBehaviour
                 }
             }
         }
-
-        //block
 
         // block
         if (Input.GetKey(KeyCode.S))

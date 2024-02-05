@@ -11,6 +11,7 @@ public class Player2Controller : MonoBehaviour
     public Transform groundCheck;
     public Transform attackObject;
     public LayerMask groundLayer;
+    public LayerMask playerLayer;
     private CharacterController charController;
     private Player1Controller otherChar;
     public bool isBlocking = false;
@@ -72,7 +73,7 @@ public class Player2Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            if (Physics.CheckBox(attackCenter, attackRadius))
+            if (Physics.CheckBox(attackCenter, attackRadius, this.transform.rotation, playerLayer))
             {
                 if (otherChar.isBlocking == false)
                 {
