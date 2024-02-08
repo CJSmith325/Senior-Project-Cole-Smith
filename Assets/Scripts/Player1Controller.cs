@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player1Controller : MonoBehaviour
 {
@@ -81,6 +82,8 @@ public class Player1Controller : MonoBehaviour
                     if (otherChar.player2health <= 0)
                     {
                         Destroy(otherChar.gameObject);
+                        GameControl.victoryText = "Player 1 Wins!";
+                        SceneManager.LoadScene("GameOverScreen");
                     }
                 }
                 if (otherChar.isBlocking == true)
@@ -90,6 +93,8 @@ public class Player1Controller : MonoBehaviour
                     if (otherChar.player2health <= 0)
                     {
                         Destroy(otherChar.gameObject);
+                        GameControl.victoryText = "Player 1 Wins!";
+                        SceneManager.LoadScene("GameOverScreen");
                     }
                 }
             }

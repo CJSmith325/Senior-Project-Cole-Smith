@@ -6,7 +6,22 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9ca31263640fa584088a9e6295230438
+  - enabled: 1
+    path: Assets/Scenes/InstructionsandCredits.unity
+    guid: 3c87883b2f295dd4f82f1df40f6c5cad
+  - enabled: 1
+    path: Assets/Scenes/CharacterSelectScreen.unity
+    guid: 48a01fc61d7693142b0b8cdb515727bf
+  - enabled: 1
+    path: Assets/Scenes/EnvironmentSelectScreen.unity
+    guid: 4ad7f905c2c49c543882c0ceba299e72
+  - enabled: 1
     path: Assets/Scenes/FightScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/GameOverScreen.unity
+    guid: aeddd814374e82f45b3d7d34394bc4d0
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
