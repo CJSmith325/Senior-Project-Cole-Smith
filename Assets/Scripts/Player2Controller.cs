@@ -68,7 +68,7 @@ public class Player2Controller : MonoBehaviour
 
 
         //attack
-        Vector3 attackRadius = new Vector3(0.5f, 0.5f);
+        Vector3 attackRadius = new Vector3(0.47f, 0.47f);
         Vector3 attackCenter = attackObject.transform.position;
 
         if (Input.GetKeyDown(KeyCode.O))
