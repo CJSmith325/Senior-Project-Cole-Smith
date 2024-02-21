@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Player2Health : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Slider healthBar;
+    public Player2Controller playerHealth;
+    private void Start()
     {
-        
+        healthBar.maxValue = playerHealth.player2MaxHealth;
+        healthBar.value = playerHealth.player2Health;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        healthBar.value = playerHealth.player2Health;
     }
 }

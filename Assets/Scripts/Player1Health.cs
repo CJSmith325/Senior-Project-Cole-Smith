@@ -1,27 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Player1Health : MonoBehaviour
 {
-    public int curHealth = 0;
-    public int maxHealth = 100;
-    public HealthBar1 healthBar;
-    void Start()
+    public Slider healthBar;
+    public Player1Controller playerHealth;
+    private void Start()
     {
-        curHealth = maxHealth;
+        
+        
+        healthBar.maxValue = playerHealth.player1MaxHealth;
+        healthBar.value = playerHealth.player1Health;
     }
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            DamagePlayer(10);
-        }
+        healthBar.value = playerHealth.player1Health;
     }
-    public void DamagePlayer(int damage)
-    {
-        curHealth -= damage;
-        healthBar.SetHealth(curHealth);
-    }
-
 }

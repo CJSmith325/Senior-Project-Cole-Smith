@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player1Controller : MonoBehaviour
 {
     public float player1Health = 100f;
+    public float player1MaxHealth = 100f;
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
     private Vector3 Velocity;
@@ -77,9 +78,9 @@ public class Player1Controller : MonoBehaviour
             {
                 if (otherChar.isBlocking == false)
                 {
-                    otherChar.player2health -= 10;
-                    Debug.Log(otherChar.player2health);
-                    if (otherChar.player2health <= 0)
+                    otherChar.player2Health -= 10;
+                    Debug.Log(otherChar.player2Health);
+                    if (otherChar.player2Health <= 0)
                     {
                         Destroy(otherChar.gameObject);
                         GameControl.victoryText = "Player 1 Wins!";
@@ -88,9 +89,9 @@ public class Player1Controller : MonoBehaviour
                 }
                 if (otherChar.isBlocking == true)
                 {
-                    otherChar.player2health -= 0.5f;
-                    Debug.Log(otherChar.player2health);
-                    if (otherChar.player2health <= 0)
+                    otherChar.player2Health -= 0.5f;
+                    Debug.Log(otherChar.player2Health);
+                    if (otherChar.player2Health <= 0)
                     {
                         Destroy(otherChar.gameObject);
                         GameControl.victoryText = "Player 1 Wins!";

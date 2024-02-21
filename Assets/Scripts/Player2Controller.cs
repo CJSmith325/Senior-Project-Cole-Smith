@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Player2Controller : MonoBehaviour
 {
-    public float player2health = 100f;
+    public float player2Health = 100f;
+    public float player2MaxHealth = 100f;
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
     private Vector3 Velocity;
