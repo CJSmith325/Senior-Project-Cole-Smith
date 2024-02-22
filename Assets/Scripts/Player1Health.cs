@@ -8,8 +8,6 @@ public class Player1Health : MonoBehaviour
     public Player1Controller playerHealth;
     private void Start()
     {
-        
-        
         healthBar.maxValue = playerHealth.player1MaxHealth;
         healthBar.value = playerHealth.player1Health;
     }
