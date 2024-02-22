@@ -38,6 +38,18 @@ public class Pause : MonoBehaviour
         paused = !paused;
     }
 
+    public void RestartFight()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("FightScene");
+    }
+
+    public void ReturnCharacterSelect()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("CharacterSelectScreen");
+    }
+
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1;
