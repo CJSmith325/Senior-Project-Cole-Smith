@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class CharacterSelectManager : MonoBehaviour
 {
     private int selectCount;
-    
+    public CharacterHolding stringHold;
     public TextMeshProUGUI playerText; 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (selectCount == 0)
         {
-
+            stringHold.characterOne = "Sasquatch";
             selectCount++;
             playerText.text = "Player 2";
             return;
@@ -38,7 +38,7 @@ public class CharacterSelectManager : MonoBehaviour
 
         if (selectCount == 1)
         {
-
+            stringHold.characterTwo = "Sasquatch";
             selectCount++;
         }
     }
@@ -47,7 +47,7 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (selectCount == 0)
         {
-
+            stringHold.characterOne = "Mothman";
             selectCount++;
             playerText.text = "Player 2";
             return;
@@ -55,7 +55,7 @@ public class CharacterSelectManager : MonoBehaviour
 
         if (selectCount == 1)
         {
-
+            stringHold.characterTwo = "Mothman";
             selectCount++;
         }
     }
@@ -64,7 +64,7 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (selectCount == 0)
         {
-
+            stringHold.characterOne = "Dragon";
             selectCount++;
             playerText.text = "Player 2";
             return;
@@ -72,7 +72,7 @@ public class CharacterSelectManager : MonoBehaviour
 
         if (selectCount == 1)
         {
-
+            stringHold.characterTwo = "Dragon";
             selectCount++;
         }
     }
@@ -81,7 +81,7 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (selectCount == 0)
         {
-
+            stringHold.characterOne = "Akhlut";
             selectCount++;
             playerText.text = "Player 2";
             return;
@@ -89,7 +89,7 @@ public class CharacterSelectManager : MonoBehaviour
 
         if (selectCount == 1)
         {
-
+            stringHold.characterTwo = "Akhlut";
             selectCount++;
         }
     }
@@ -98,7 +98,7 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (selectCount == 0)
         {
-
+            stringHold.characterOne = "Leshy";
             selectCount++;
             playerText.text = "Player 2";
             return;
@@ -106,7 +106,7 @@ public class CharacterSelectManager : MonoBehaviour
 
         if (selectCount == 1)
         {
-
+            stringHold.characterTwo = "Leshy";
             selectCount++;
         }
     }

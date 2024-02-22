@@ -22,6 +22,11 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadCharacterSelect()
     {
+        if (FindAnyObjectByType<CharacterHolding>() != null)
+        {
+            Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
+        }
+        
         SceneManager.LoadScene("CharacterSelectScreen");
     }
 
