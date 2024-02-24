@@ -47,6 +47,7 @@ public class Pause : MonoBehaviour
     public void ReturnCharacterSelect()
     {
         Time.timeScale = 1;
+        Destroy(GameObject.Find("CharacterHolder"));
         SceneManager.LoadScene("CharacterSelectScreen");
     }
 

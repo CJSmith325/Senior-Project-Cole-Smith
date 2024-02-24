@@ -17,10 +17,12 @@ public class Player2Controller : MonoBehaviour
     private CharacterController charController;
     private Player1Controller otherChar;
     public bool isBlocking = false;
+    private MeshRenderer hitboxMesh;
 
 
     private void Start()
     {
+        hitboxMesh = GameObject.Find("meshCubeP2").GetComponent<MeshRenderer>();
         charController = this.GetComponent<CharacterController>();
         otherChar = FindAnyObjectByType<Player1Controller>();
     }
@@ -75,6 +77,7 @@ public class Player2Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.O))
         {
+            hitboxMesh.enabled = true;
             if (Physics.CheckBox(attackCenter, attackRadius, this.transform.rotation, playerLayer))
             {
                 if (otherChar.isBlocking == false)
@@ -100,17 +103,20 @@ public class Player2Controller : MonoBehaviour
                     }
                 }
             }
+            hitboxMesh.enabled = false;
         }
 
 
         // block
         if (Input.GetKey(KeyCode.K))
         {
+            hitboxMesh.enabled = true;
             isBlocking = true;
         }
 
         if (Input.GetKeyUp(KeyCode.K))
         {
+            hitboxMesh.enabled = false;
             isBlocking = false;
         }
     }

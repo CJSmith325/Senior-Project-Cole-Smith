@@ -14,14 +14,17 @@ public class Player1Controller : MonoBehaviour
     public Transform attackObject;
     public LayerMask groundLayer;
     public LayerMask playerLayer;
+    public MeshRenderer hitboxMesh;
     private CharacterController charController;
     private Player2Controller otherChar;
     public bool isBlocking = false;
 
     private void Start()
     {
+        hitboxMesh = GameObject.Find("meshCubeP1").GetComponent<MeshRenderer>();
         charController = this.GetComponent<CharacterController>();
         otherChar = FindAnyObjectByType<Player2Controller>();
+        Debug.Log(hitboxMesh.gameObject.name);
     }
 
     void Update()
@@ -74,6 +77,8 @@ public class Player1Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
+            hitboxMesh.enabled = true;
+            Debug.Log("Mesh on");
             if (Physics.CheckBox(attackCenter, attackRadius, this.transform.rotation, playerLayer))
             {
                 if (otherChar.isBlocking == false)
@@ -99,17 +104,21 @@ public class Player1Controller : MonoBehaviour
                     }
                 }
             }
+            Debug.Log("mesh off");
+            hitboxMesh.enabled = false;
         }
 
         // block
         if (Input.GetKey(KeyCode.S))
         {
+            hitboxMesh.enabled = true;
             isBlocking = true;
             Debug.Log("Blocking");
         }
 
         if (Input.GetKeyUp(KeyCode.S))
         {
+            hitboxMesh.enabled = false;
             isBlocking = false;
             Debug.Log("Not Blocking");
         }
