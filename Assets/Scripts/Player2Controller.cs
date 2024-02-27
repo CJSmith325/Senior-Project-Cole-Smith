@@ -7,6 +7,8 @@ public class Player2Controller : MonoBehaviour
 {
     public float player2Health = 100f;
     public float player2MaxHealth = 100f;
+    public float player2Attack = 100f;
+    public float player2MaxAttack = 100f;
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
     private Vector3 Velocity;
@@ -18,6 +20,8 @@ public class Player2Controller : MonoBehaviour
     private Player1Controller otherChar;
     public bool isBlocking = false;
     private MeshRenderer hitboxMesh;
+    public GameObject boulderPrefab;
+    private GameObject boulderHolder;
 
 
     private void Start()
@@ -104,6 +108,20 @@ public class Player2Controller : MonoBehaviour
                 }
             }
             hitboxMesh.enabled = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if (player2Attack >= 100f)
+            {
+                // do special attack
+                boulderHolder = Instantiate(boulderPrefab, attackCenter, Quaternion.identity);
+                boulderHolder.AddComponent<BoulderCollisionP2>();
+                boulderHolder.GetComponent<Rigidbody>().AddRelativeForce(-150f, 200f, 0);
+                // check bouldercollision for rest of code
+                Debug.Log("Special ATTACK");
+                player2Attack = 0;
+            }
         }
 
 

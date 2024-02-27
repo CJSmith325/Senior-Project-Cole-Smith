@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,8 @@ public class Player1Controller : MonoBehaviour
 {
     public float player1Health = 100f;
     public float player1MaxHealth = 100f;
+    public float player1Attack = 100f;
+    public float player1MaxAttack = 100f;
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
     private Vector3 Velocity;
@@ -17,10 +20,17 @@ public class Player1Controller : MonoBehaviour
     public MeshRenderer hitboxMesh;
     private CharacterController charController;
     private Player2Controller otherChar;
+    public GameObject boulderPrefab;
+    private GameObject boulderHolder;
     public bool isBlocking = false;
+    //private Rigidbody boulderRB;
+    //private Vector3 boulderVector = new Vector3();
+
 
     private void Start()
     {
+        //boulderRB = boulderPrefab.GetComponent<Rigidbody>();
+        player1Attack = 100f;
         hitboxMesh = GameObject.Find("meshCubeP1").GetComponent<MeshRenderer>();
         charController = this.GetComponent<CharacterController>();
         otherChar = FindAnyObjectByType<Player2Controller>();
@@ -75,6 +85,8 @@ public class Player1Controller : MonoBehaviour
         Vector3 attackRadius = new Vector3(0.4f, 0.4f);
         Vector3 attackCenter = attackObject.transform.position;
 
+
+        // basic attack
         if (Input.GetKeyDown(KeyCode.W))
         {
             hitboxMesh.enabled = true;
@@ -106,6 +118,20 @@ public class Player1Controller : MonoBehaviour
             }
             Debug.Log("mesh off");
             hitboxMesh.enabled = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (player1Attack >= 100f)
+            {
+                // do special attack
+                boulderHolder = Instantiate(boulderPrefab, attackCenter, Quaternion.identity);
+                boulderHolder.AddComponent<BoulderCollisionP1>();
+                boulderHolder.GetComponent<Rigidbody>().AddRelativeForce(150f, 200f, 0);
+                // check bouldercollision for rest of code
+                Debug.Log("Special ATTACK");
+                player1Attack = 0;
+            }
         }
 
         // block

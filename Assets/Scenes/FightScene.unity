@@ -2083,6 +2083,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Health: 100
   player1MaxHealth: 100
+  player1Attack: 100
+  player1MaxAttack: 100
   moveSpeed: 5
   jumpForce: 7
   groundCheck: {fileID: 1746639416}
@@ -2094,6 +2096,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   hitboxMesh: {fileID: 0}
+  boulderPrefab: {fileID: 321130271319705080, guid: c4471a1f46d749e44b1d06702f22de04, type: 3}
   isBlocking: 0
 --- !u!136 &960618398
 CapsuleCollider:
@@ -2227,6 +2230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 781018470}
+  attackBar: {fileID: 1441682290}
   playerHealth: {fileID: 960618397}
 --- !u!1 &963194225
 GameObject:
@@ -2728,6 +2732,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player2Health: 100
   player2MaxHealth: 100
+  player2Attack: 100
+  player2MaxAttack: 100
   moveSpeed: 5
   jumpForce: 7
   groundCheck: {fileID: 1330520739}
@@ -2739,6 +2745,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   isBlocking: 0
+  boulderPrefab: {fileID: 321130271319705080, guid: c4471a1f46d749e44b1d06702f22de04, type: 3}
 --- !u!136 &1256321919
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2871,6 +2878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1863755015}
+  attackBar: {fileID: 384396853}
   playerHealth: {fileID: 1256321918}
 --- !u!1 &1330520738
 GameObject:
