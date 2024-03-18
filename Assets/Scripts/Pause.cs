@@ -41,7 +41,7 @@ public class Pause : MonoBehaviour
     public void RestartFight()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("FightScene");
+        SceneManager.LoadScene(FindAnyObjectByType<EnvironmentHolding>().environmentName);
     }
 
     public void ReturnCharacterSelect()

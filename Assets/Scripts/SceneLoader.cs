@@ -12,12 +12,12 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadFight()
     {
-        SceneManager.LoadScene("FightScene");
+        SceneManager.LoadScene(FindAnyObjectByType<EnvironmentHolding>().environmentName);
     }
 
     public void RematchFighters()
     {
-        SceneManager.LoadScene("FightScene");
+        SceneManager.LoadScene("Jungle");
     }
 
     public void LoadCharacterSelect()
@@ -32,6 +32,10 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadEnvironmentSelect()
     {
+        if (FindAnyObjectByType<EnvironmentHolding>() != null)
+        {
+            Destroy(FindAnyObjectByType<EnvironmentHolding>().gameObject);
+        }
         SceneManager.LoadScene("EnvironmentSelectScreen");
     }
 

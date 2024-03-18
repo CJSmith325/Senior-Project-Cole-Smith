@@ -17,7 +17,7 @@ public class Player1Controller : MonoBehaviour
     public Transform attackObject;
     public LayerMask groundLayer;
     public LayerMask playerLayer;
-    public MeshRenderer hitboxMesh;
+    private MeshRenderer hitboxMesh;
     private CharacterController charController;
     private Player2Controller otherChar;
     public GameObject boulderPrefab;
@@ -71,10 +71,9 @@ public class Player1Controller : MonoBehaviour
         }
         else
         {
-            if (Velocity.y > -9.81f)
-            {
+            
                 Velocity.y -= 9.81f * Time.deltaTime;
-            }
+            
         }
         // move and jump with given input
         //charController.Move(movement.normalized * moveSpeed * Time.deltaTime);
@@ -127,7 +126,7 @@ public class Player1Controller : MonoBehaviour
                 // do special attack
                 boulderHolder = Instantiate(boulderPrefab, attackCenter, Quaternion.identity);
                 boulderHolder.AddComponent<BoulderCollisionP1>();
-                boulderHolder.GetComponent<Rigidbody>().AddRelativeForce(150f, 200f, 0);
+                boulderHolder.GetComponent<Rigidbody>().AddRelativeForce(300f, 400f, 0);
                 // check bouldercollision for rest of code
                 Debug.Log("Special ATTACK");
                 player1Attack = 0;

@@ -10,10 +10,12 @@ public class CharacterSelectManager : MonoBehaviour
 {
     private int selectCount;
     public CharacterHolding stringHold;
+    private EnvironmentHolding environmentHolder;
     public TextMeshProUGUI playerText; 
     // Start is called before the first frame update
     void Start()
     {
+        environmentHolder = GameObject.FindAnyObjectByType<EnvironmentHolding>();
         selectCount = 0;
     }
 
@@ -22,7 +24,7 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (selectCount == 2)
         {
-            SceneManager.LoadScene("FightScene");
+            SceneManager.LoadScene(environmentHolder.environmentName);
         }
     }
 

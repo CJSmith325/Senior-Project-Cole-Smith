@@ -117,7 +117,7 @@ public class Player2Controller : MonoBehaviour
                 // do special attack
                 boulderHolder = Instantiate(boulderPrefab, attackCenter, Quaternion.identity);
                 boulderHolder.AddComponent<BoulderCollisionP2>();
-                boulderHolder.GetComponent<Rigidbody>().AddRelativeForce(-150f, 200f, 0);
+                boulderHolder.GetComponent<Rigidbody>().AddRelativeForce(-300f, 400f, 0);
                 // check bouldercollision for rest of code
                 Debug.Log("Special ATTACK");
                 player2Attack = 0;
