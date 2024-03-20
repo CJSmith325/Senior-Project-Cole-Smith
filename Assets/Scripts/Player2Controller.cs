@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player2Controller : MonoBehaviour
 {
+    public bool isPunching = false;
     public float player2Health = 100f;
     public float player2MaxHealth = 100f;
     public float player2Attack = 100f;
@@ -16,18 +17,19 @@ public class Player2Controller : MonoBehaviour
     public Transform attackObject;
     public LayerMask groundLayer;
     public LayerMask playerLayer;
-    private CharacterController charController;
+    public CharacterController charController;
     private Player1Controller otherChar;
     public bool isBlocking = false;
     private MeshRenderer hitboxMesh;
     public GameObject boulderPrefab;
     private GameObject boulderHolder;
+    public Animator anim;
 
 
     private void Start()
     {
         hitboxMesh = GameObject.Find("meshCubeP2").GetComponent<MeshRenderer>();
-        charController = this.GetComponent<CharacterController>();
+        
         otherChar = FindAnyObjectByType<Player1Controller>();
     }
 
@@ -38,11 +40,27 @@ public class Player2Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.L))
         {
             charController.Move(movement * Time.deltaTime);
+            anim.SetBool("isIdling", false);
+            anim.SetBool("isWalking", true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.L))
+        {
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isIdling", true);
         }
 
         if (Input.GetKey(KeyCode.J))
         {
            charController.Move(-movement * Time.deltaTime);
+            anim.SetBool("isIdling", false);
+            anim.SetBool("isWalking", true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.J))
+        {
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isIdling", true);
         }
 
         // movement
@@ -67,7 +85,7 @@ public class Player2Controller : MonoBehaviour
         {
             if (Velocity.y > -9.81f)
             {
-                Velocity.y -= 9.81f * Time.deltaTime;
+                Velocity.y -= 19.62f * Time.deltaTime;
             }
         }
         // move and jump with given input
@@ -76,38 +94,12 @@ public class Player2Controller : MonoBehaviour
 
 
         //attack
-        Vector3 attackRadius = new Vector3(0.4f, 0.4f);
+        
         Vector3 attackCenter = attackObject.transform.position;
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            hitboxMesh.enabled = true;
-            if (Physics.CheckBox(attackCenter, attackRadius, this.transform.rotation, playerLayer))
-            {
-                if (otherChar.isBlocking == false)
-                {
-                    otherChar.player1Health -= 10;
-                    Debug.Log(otherChar.player1Health);
-                    if (otherChar.player1Health <= 0)
-                    {
-                        Destroy(otherChar.gameObject);
-                        GameControl.victoryText = "Player 2 Wins!";
-                        SceneManager.LoadScene("GameOverScreen");
-                    }
-                }
-                if (otherChar.isBlocking ==true)
-                {
-                    otherChar.player1Health -= 0.5f;
-                    Debug.Log(otherChar.player1Health);
-                    if (otherChar.player1Health <= 0)
-                    {
-                        Destroy(otherChar.gameObject);
-                        GameControl.victoryText = "Player 2 Wins!";
-                        SceneManager.LoadScene("GameOverScreen");
-                    }
-                }
-            }
-            hitboxMesh.enabled = false;
+            StartCoroutine(BasicPunch());
         }
 
         if (Input.GetKeyDown(KeyCode.U))
@@ -137,5 +129,50 @@ public class Player2Controller : MonoBehaviour
             hitboxMesh.enabled = false;
             isBlocking = false;
         }
+    }
+
+    public IEnumerator BasicPunch()
+    {
+        isPunching = true;
+        //Vector3 attackRadius = new Vector3(0.4f, 0.4f);
+        //Vector3 attackCenter = attackObject.transform.position;
+
+        //Debug.Log("Mesh on");
+        anim.SetBool("isPunching", true);
+        anim.SetBool("isIdling", false);
+        anim.SetBool("isWalking", false);
+        //if (Physics.CheckBox(attackCenter, attackRadius, this.transform.rotation, playerLayer))
+        //{
+        //    if (otherChar.isBlocking == false)
+        //    {
+        //        otherChar.player2Health -= 10;
+        //        Debug.Log(otherChar.player2Health);
+        //        if (otherChar.player2Health <= 0)
+        //        {
+        //            Destroy(otherChar.gameObject);
+        //            GameControl.victoryText = "Player 1 Wins!";
+        //            SceneManager.LoadScene("GameOverScreen");
+        //        }
+        //    }
+        //    if (otherChar.isBlocking == true)
+        //    {
+        //        otherChar.player2Health -= 0.5f;
+        //        Debug.Log(otherChar.player2Health);
+        //        if (otherChar.player2Health <= 0)
+        //        {
+        //            Destroy(otherChar.gameObject);
+        //            GameControl.victoryText = "Player 1 Wins!";
+        //            SceneManager.LoadScene("GameOverScreen");
+        //        }
+        //    }
+        //}
+        //Debug.Log("mesh off");
+        //hitboxMesh.enabled = false;
+
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("isPunching", false);
+        isPunching = false;
+        anim.SetBool("isIdling", true);
+
     }
 }

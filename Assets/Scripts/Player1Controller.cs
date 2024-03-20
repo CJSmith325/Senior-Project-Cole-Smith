@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Player1Controller : MonoBehaviour
 {
+    public bool isPunching = false;
     public float player1Health = 100f;
     public float player1MaxHealth = 100f;
     public float player1Attack = 100f;
@@ -18,11 +19,14 @@ public class Player1Controller : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask playerLayer;
     private MeshRenderer hitboxMesh;
-    private CharacterController charController;
+    public CharacterController charController;
     private Player2Controller otherChar;
     public GameObject boulderPrefab;
     private GameObject boulderHolder;
     public bool isBlocking = false;
+    public Animator anim;
+    public SphereCollider P1RightHand;
+    public SphereCollider P1LeftHand;
     //private Rigidbody boulderRB;
     //private Vector3 boulderVector = new Vector3();
 
@@ -31,10 +35,11 @@ public class Player1Controller : MonoBehaviour
     {
         //boulderRB = boulderPrefab.GetComponent<Rigidbody>();
         player1Attack = 100f;
-        hitboxMesh = GameObject.Find("meshCubeP1").GetComponent<MeshRenderer>();
+        hitboxMesh = GameObject.Find("meshCubeP1Sas1").GetComponent<MeshRenderer>();
         charController = this.GetComponent<CharacterController>();
         otherChar = FindAnyObjectByType<Player2Controller>();
         Debug.Log(hitboxMesh.gameObject.name);
+
     }
 
     void Update()
@@ -44,11 +49,29 @@ public class Player1Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             charController.Move(-movement * Time.deltaTime);
+            
+            anim.SetBool("isIdling", false);
+            anim.SetBool("isWalking", true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isIdling", true);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             charController.Move(movement * Time.deltaTime);
+            
+            anim.SetBool("isIdling", false);
+            anim.SetBool("isWalking", true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isIdling", true);
         }
 
         // movement
@@ -71,54 +94,30 @@ public class Player1Controller : MonoBehaviour
         }
         else
         {
-            
-                Velocity.y -= 9.81f * Time.deltaTime;
-            
+
+            if (Velocity.y > -9.81f)
+            {
+                Velocity.y -= 19.62f * Time.deltaTime;
+            }
+
         }
         // move and jump with given input
         //charController.Move(movement.normalized * moveSpeed * Time.deltaTime);
         charController.Move(Velocity * Time.deltaTime);
 
-        // attack
-
-        Vector3 attackRadius = new Vector3(0.4f, 0.4f);
+        //Vector3 attackRadius = new Vector3(0.4f, 0.4f);
         Vector3 attackCenter = attackObject.transform.position;
 
 
         // basic attack
         if (Input.GetKeyDown(KeyCode.W))
         {
-            hitboxMesh.enabled = true;
-            Debug.Log("Mesh on");
-            if (Physics.CheckBox(attackCenter, attackRadius, this.transform.rotation, playerLayer))
-            {
-                if (otherChar.isBlocking == false)
-                {
-                    otherChar.player2Health -= 10;
-                    Debug.Log(otherChar.player2Health);
-                    if (otherChar.player2Health <= 0)
-                    {
-                        Destroy(otherChar.gameObject);
-                        GameControl.victoryText = "Player 1 Wins!";
-                        SceneManager.LoadScene("GameOverScreen");
-                    }
-                }
-                if (otherChar.isBlocking == true)
-                {
-                    otherChar.player2Health -= 0.5f;
-                    Debug.Log(otherChar.player2Health);
-                    if (otherChar.player2Health <= 0)
-                    {
-                        Destroy(otherChar.gameObject);
-                        GameControl.victoryText = "Player 1 Wins!";
-                        SceneManager.LoadScene("GameOverScreen");
-                    }
-                }
-            }
-            Debug.Log("mesh off");
-            hitboxMesh.enabled = false;
+            StartCoroutine(BasicPunch());
         }
+        
+        
 
+        
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (player1Attack >= 100f)
@@ -148,5 +147,51 @@ public class Player1Controller : MonoBehaviour
             Debug.Log("Not Blocking");
         }
 
+        
+    }
+
+    public IEnumerator BasicPunch()
+    {
+            isPunching = true;
+            //Vector3 attackRadius = new Vector3(0.4f, 0.4f);
+            //Vector3 attackCenter = attackObject.transform.position;
+            
+                //Debug.Log("Mesh on");
+                anim.SetBool("isPunching", true);
+                anim.SetBool("isIdling", false);
+                anim.SetBool("isWalking", false);
+                //if (Physics.CheckBox(attackCenter, attackRadius, this.transform.rotation, playerLayer))
+                //{
+                //    if (otherChar.isBlocking == false)
+                //    {
+                //        otherChar.player2Health -= 10;
+                //        Debug.Log(otherChar.player2Health);
+                //        if (otherChar.player2Health <= 0)
+                //        {
+                //            Destroy(otherChar.gameObject);
+                //            GameControl.victoryText = "Player 1 Wins!";
+                //            SceneManager.LoadScene("GameOverScreen");
+                //        }
+                //    }
+                //    if (otherChar.isBlocking == true)
+                //    {
+                //        otherChar.player2Health -= 0.5f;
+                //        Debug.Log(otherChar.player2Health);
+                //        if (otherChar.player2Health <= 0)
+                //        {
+                //            Destroy(otherChar.gameObject);
+                //            GameControl.victoryText = "Player 1 Wins!";
+                //            SceneManager.LoadScene("GameOverScreen");
+                //        }
+                //    }
+                //}
+                //Debug.Log("mesh off");
+                //hitboxMesh.enabled = false;
+            
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("isPunching", false);
+        isPunching = false;
+        anim.SetBool("isIdling", true);
+        
     }
 }
