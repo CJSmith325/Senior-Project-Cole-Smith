@@ -12,6 +12,8 @@ public class GameControl : MonoBehaviour
     public TextMeshProUGUI playerOne;
     public TextMeshProUGUI playerTwo;
     private CharacterHolding charHolder;
+    public GameObject player1;
+    public GameObject player2;
 
     private void Start()
     {
@@ -19,6 +21,7 @@ public class GameControl : MonoBehaviour
         charHolder = FindAnyObjectByType<CharacterHolding>();
         playerOne.text = charHolder.characterOne;
         playerTwo.text = charHolder.characterTwo;
+        
     }
     private void Update()
     {

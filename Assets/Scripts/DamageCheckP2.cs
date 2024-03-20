@@ -27,7 +27,7 @@ public class DamageCheckP2 : MonoBehaviour
                 if (player1.player1Health <= 0)
                 {
                     Destroy(player1.gameObject);
-                    GameControl.victoryText = "Player 1 Wins!";
+                    GameControl.victoryText = "Player 2 Wins!";
                     SceneManager.LoadScene("GameOverScreen");
                 }
             }
@@ -38,7 +38,7 @@ public class DamageCheckP2 : MonoBehaviour
                 if (player1.player1Health <= 0)
                 {
                     Destroy(player2.gameObject);
-                    GameControl.victoryText = "Player 1 Wins!";
+                    GameControl.victoryText = "Player 2 Wins!";
                     SceneManager.LoadScene("GameOverScreen");
                 }
 

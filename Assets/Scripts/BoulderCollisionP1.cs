@@ -9,6 +9,7 @@ public class BoulderCollisionP1 : MonoBehaviour
         if (other.tag == "Player2")
         {
             other.GetComponent<Player2Controller>().player2Health -= 20;
+            
             Destroy(this.gameObject);
         }
 

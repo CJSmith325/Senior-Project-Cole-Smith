@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class Player2Controller : MonoBehaviour
 {
+    public bool isAttacking = false;
     public bool isPunching = false;
     public float player2Health = 100f;
     public float player2MaxHealth = 100f;
@@ -28,39 +30,60 @@ public class Player2Controller : MonoBehaviour
 
     private void Start()
     {
-        hitboxMesh = GameObject.Find("meshCubeP2").GetComponent<MeshRenderer>();
+        //hitboxMesh = GameObject.Find("meshCubeP2").GetComponent<MeshRenderer>();
         
         otherChar = FindAnyObjectByType<Player1Controller>();
     }
 
     void Update()
     {
+
+        if (player2Health <= 0)
+        {
+            Destroy(this.gameObject);
+            GameControl.victoryText = "Player 1 Wins!";
+            SceneManager.LoadScene("GameOverScreen");
+        }
+
         Vector3 movement = new Vector3(moveSpeed, 0f, 0f);
         // movement
         if (Input.GetKey(KeyCode.L))
         {
             charController.Move(movement * Time.deltaTime);
-            anim.SetBool("isIdling", false);
-            anim.SetBool("isWalking", true);
+            if (isPunching == false && isAttacking == false)
+            {
+                anim.SetBool("isIdling", false);
+                anim.SetBool("isWalking", true);
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.L))
         {
-            anim.SetBool("isWalking", false);
-            anim.SetBool("isIdling", true);
+            if (isPunching == false && isAttacking == false)
+            {
+                anim.SetBool("isWalking", false);
+                anim.SetBool("isIdling", true);
+            }
         }
 
         if (Input.GetKey(KeyCode.J))
         {
            charController.Move(-movement * Time.deltaTime);
-            anim.SetBool("isIdling", false);
-            anim.SetBool("isWalking", true);
+
+           if (isPunching == false && isAttacking == false)
+           {
+                anim.SetBool("isIdling", false);
+                anim.SetBool("isWalking", true);
+           }
         }
 
         if (Input.GetKeyUp(KeyCode.J))
         {
-            anim.SetBool("isWalking", false);
-            anim.SetBool("isIdling", true);
+            if (isPunching == false && isAttacking == false)
+            {
+                anim.SetBool("isWalking", false);
+                anim.SetBool("isIdling", true);
+            }
         }
 
         // movement
@@ -104,16 +127,7 @@ public class Player2Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.U))
         {
-            if (player2Attack >= 100f)
-            {
-                // do special attack
-                boulderHolder = Instantiate(boulderPrefab, attackCenter, Quaternion.identity);
-                boulderHolder.AddComponent<BoulderCollisionP2>();
-                boulderHolder.GetComponent<Rigidbody>().AddRelativeForce(-300f, 400f, 0);
-                // check bouldercollision for rest of code
-                Debug.Log("Special ATTACK");
-                player2Attack = 0;
-            }
+            StartCoroutine(SpecialAttack());
         }
 
 
@@ -173,6 +187,33 @@ public class Player2Controller : MonoBehaviour
         anim.SetBool("isPunching", false);
         isPunching = false;
         anim.SetBool("isIdling", true);
+
+    }
+
+    public IEnumerator SpecialAttack()
+    {
+        if (player2Attack >= 100f)
+        {
+
+            isAttacking = true;
+            // do special attack
+            anim.SetBool("isPunching", false);
+            anim.SetBool("isIdling", false);
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isAttacking", true);
+            yield return new WaitForSeconds(2.3f);
+            Vector3 attackCenter = attackObject.transform.position;
+            boulderHolder = Instantiate(boulderPrefab, attackCenter, Quaternion.identity);
+            boulderHolder.AddComponent<BoulderCollisionP2>();
+            boulderHolder.GetComponent<Rigidbody>().AddRelativeForce(-300f, 400f, 0);
+            // check bouldercollision for rest of code
+            Debug.Log("Special ATTACK");
+            player2Attack = 0;
+
+            anim.SetBool("isAttacking", false);
+            isAttacking = false;
+            anim.SetBool("isIdling", true);
+        }
 
     }
 }

@@ -11,7 +11,12 @@ public class CharacterSelectManager : MonoBehaviour
     private int selectCount;
     public CharacterHolding stringHold;
     private EnvironmentHolding environmentHolder;
-    public TextMeshProUGUI playerText; 
+    public TextMeshProUGUI playerText;
+    public GameObject sasHold;
+    public GameObject mothHold;
+    public GameObject dragHold;
+    public GameObject leshyHold;
+    public GameObject akhlutHold;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +40,7 @@ public class CharacterSelectManager : MonoBehaviour
             stringHold.characterOne = "Sasquatch";
             selectCount++;
             playerText.text = "Player 2";
+            sasHold.SetActive(true);
             return;
         }
 
@@ -52,6 +58,7 @@ public class CharacterSelectManager : MonoBehaviour
             stringHold.characterOne = "Mothman";
             selectCount++;
             playerText.text = "Player 2";
+            mothHold.SetActive(true);
             return;
         }
 
@@ -69,6 +76,7 @@ public class CharacterSelectManager : MonoBehaviour
             stringHold.characterOne = "Dragon";
             selectCount++;
             playerText.text = "Player 2";
+            dragHold.SetActive(true);
             return;
         }
 
@@ -86,6 +94,7 @@ public class CharacterSelectManager : MonoBehaviour
             stringHold.characterOne = "Akhlut";
             selectCount++;
             playerText.text = "Player 2";
+            akhlutHold.SetActive(true);
             return;
         }
 
@@ -103,6 +112,7 @@ public class CharacterSelectManager : MonoBehaviour
             stringHold.characterOne = "Leshy";
             selectCount++;
             playerText.text = "Player 2";
+            leshyHold.SetActive(true);
             return;
         }
 
