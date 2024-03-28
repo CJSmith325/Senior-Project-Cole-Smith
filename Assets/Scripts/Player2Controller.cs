@@ -26,6 +26,7 @@ public class Player2Controller : MonoBehaviour
     public GameObject boulderPrefab;
     private GameObject boulderHolder;
     public Animator anim;
+    public DamageCheckP2[] dmgP2;
 
 
     private void Start()
@@ -186,6 +187,9 @@ public class Player2Controller : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         anim.SetBool("isPunching", false);
         isPunching = false;
+        // flip flags of damage script
+        dmgP2[0].hasHit = false;
+        dmgP2[1].hasHit = false;
         anim.SetBool("isIdling", true);
 
     }

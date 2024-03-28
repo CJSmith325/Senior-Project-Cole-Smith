@@ -29,6 +29,7 @@ public class Player1Controller : MonoBehaviour
     public Animator anim;
     public SphereCollider P1RightHand;
     public SphereCollider P1LeftHand;
+    public DamageCheckP1[] dmgP1;
     //private Rigidbody boulderRB;
     //private Vector3 boulderVector = new Vector3();
 
@@ -201,10 +202,15 @@ public class Player1Controller : MonoBehaviour
                 //}
                 //Debug.Log("mesh off");
                 //hitboxMesh.enabled = false;
-            
+        //flip flag of damage check script
+        
+
         yield return new WaitForSeconds(0.5f);
         anim.SetBool("isPunching", false);
         isPunching = false;
+        //flip flag of damage check script
+        dmgP1[0].hasHit = false;
+        dmgP1[1].hasHit = false;
         anim.SetBool("isIdling", true);
         
     }

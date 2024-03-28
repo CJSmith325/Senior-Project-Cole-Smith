@@ -1213,6 +1213,8 @@ MonoBehaviour:
   timerText: {fileID: 1499381533}
   playerOne: {fileID: 1534150737}
   playerTwo: {fileID: 135613065}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
 --- !u!4 &489248640
 Transform:
   m_ObjectHideFlags: 0
@@ -3175,6 +3177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48fafee4a7fe5ab4e85d1e370c8ee211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasHit: 0
   player1: {fileID: 2023018741}
   player2: {fileID: 1796152204}
 --- !u!54 &1036501551
@@ -4987,6 +4990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48fafee4a7fe5ab4e85d1e370c8ee211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasHit: 0
   player1: {fileID: 2023018741}
   player2: {fileID: 1796152204}
 --- !u!54 &1617870580
@@ -6004,6 +6008,9 @@ MonoBehaviour:
   isBlocking: 0
   boulderPrefab: {fileID: 321130271319705080, guid: c4471a1f46d749e44b1d06702f22de04, type: 3}
   anim: {fileID: 1796152206}
+  dmgP2:
+  - {fileID: 1036501550}
+  - {fileID: 1617870579}
 --- !u!143 &1796152205
 CharacterController:
   m_ObjectHideFlags: 0
@@ -6215,6 +6222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c6c24ed946a194bb89512f73a9af9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasHit: 0
   player1: {fileID: 2023018741}
   player2: {fileID: 1796152204}
 --- !u!135 &1829531982
@@ -7016,6 +7024,9 @@ MonoBehaviour:
   anim: {fileID: 2023018747}
   P1RightHand: {fileID: 1829531982}
   P1LeftHand: {fileID: 2023018742}
+  dmgP1:
+  - {fileID: 2023018744}
+  - {fileID: 1829531981}
 --- !u!135 &2023018742
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7076,6 +7087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c6c24ed946a194bb89512f73a9af9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasHit: 0
   player1: {fileID: 2023018741}
   player2: {fileID: 1796152204}
 --- !u!54 &2023018745

@@ -1419,6 +1419,8 @@ MonoBehaviour:
   timerText: {fileID: 1355840228}
   playerOne: {fileID: 6302620}
   playerTwo: {fileID: 146000759}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
 --- !u!114 &517038654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2959,6 +2961,9 @@ MonoBehaviour:
   anim: {fileID: 1052390553}
   P1RightHand: {fileID: 1052390551}
   P1LeftHand: {fileID: 1943337849}
+  dmgP1:
+  - {fileID: 1943337851}
+  - {fileID: 1052390550}
 --- !u!54 &1052390549
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2998,6 +3003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c6c24ed946a194bb89512f73a9af9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasHit: 0
   player1: {fileID: 1052390548}
   player2: {fileID: 1220892497}
 --- !u!135 &1052390551
@@ -3619,6 +3625,9 @@ MonoBehaviour:
   isBlocking: 0
   boulderPrefab: {fileID: 321130271319705080, guid: c4471a1f46d749e44b1d06702f22de04, type: 3}
   anim: {fileID: 1220892498}
+  dmgP2:
+  - {fileID: 1220892500}
+  - {fileID: 1361563552}
 --- !u!95 &1220892498
 Animator:
   serializedVersion: 7
@@ -3679,6 +3688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48fafee4a7fe5ab4e85d1e370c8ee211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasHit: 0
   player1: {fileID: 1052390548}
   player2: {fileID: 1220892497}
 --- !u!54 &1220892501
@@ -4187,6 +4197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48fafee4a7fe5ab4e85d1e370c8ee211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasHit: 0
   player1: {fileID: 1052390548}
   player2: {fileID: 1220892497}
 --- !u!54 &1361563553
@@ -5809,6 +5820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c6c24ed946a194bb89512f73a9af9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasHit: 0
   player1: {fileID: 1052390548}
   player2: {fileID: 1220892497}
 --- !u!1 &1947308457
