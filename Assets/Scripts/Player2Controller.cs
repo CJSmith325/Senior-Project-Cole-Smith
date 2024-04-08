@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 
@@ -27,6 +28,8 @@ public class Player2Controller : MonoBehaviour
     private GameObject boulderHolder;
     public Animator anim;
     public DamageCheckP2[] dmgP2;
+    public AudioSource audioSource;
+    public AudioClip jumpClip;
 
 
     private void Start()
@@ -97,20 +100,29 @@ public class Player2Controller : MonoBehaviour
             if (Velocity.y < 0)
             {
                 Velocity.y = -6f;
+                anim.SetBool("isGrounded", true);
             }
             
             if (Input.GetKey(KeyCode.I))
             {
+                audioSource.PlayOneShot(jumpClip, 0.2f);
                 Velocity.y = jumpForce;
+                anim.SetBool("isGrounded", false);
             }
 
         }
         else
         {
+            if (Velocity.y < 0)
+            {
+                anim.SetBool("isFalling", true);
+            }
             if (Velocity.y > -9.81f)
             {
                 Velocity.y -= 19.62f * Time.deltaTime;
+                
             }
+            
         }
         // move and jump with given input
         //charController.Move(movement.normalized * moveSpeed * Time.deltaTime);

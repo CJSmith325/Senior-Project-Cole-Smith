@@ -30,6 +30,9 @@ public class Player1Controller : MonoBehaviour
     public SphereCollider P1RightHand;
     public SphereCollider P1LeftHand;
     public DamageCheckP1[] dmgP1;
+    public AudioSource audioSource;
+    public AudioClip jumpClip;
+    
     //private Rigidbody boulderRB;
     //private Vector3 boulderVector = new Vector3();
 
@@ -108,20 +111,27 @@ public class Player1Controller : MonoBehaviour
             if (Velocity.y < 0)
             {
                 Velocity.y = -6f;
+                anim.SetBool("isGrounded", true);
             }
 
             if (Input.GetKey(KeyCode.Space))
             {
+                audioSource.PlayOneShot(jumpClip, 0.2f);
                 Velocity.y = jumpForce;
+                anim.SetBool("isGrounded", false);
             }
 
         }
         else
         {
-
+            if (Velocity.y < 0)
+            {
+                anim.SetBool("isFalling", true);
+            }
             if (Velocity.y > -9.81f)
             {
                 Velocity.y -= 19.62f * Time.deltaTime;
+                
             }
 
         }
