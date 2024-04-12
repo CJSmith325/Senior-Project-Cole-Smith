@@ -32,6 +32,7 @@ public class Player1Controller : MonoBehaviour
     public DamageCheckP1[] dmgP1;
     public AudioSource audioSource;
     public AudioClip jumpClip;
+    private Rigidbody rb;
     
     //private Rigidbody boulderRB;
     //private Vector3 boulderVector = new Vector3();
@@ -44,6 +45,7 @@ public class Player1Controller : MonoBehaviour
         //hitboxMesh = GameObject.Find("meshCubeP1Sas1").GetComponent<MeshRenderer>();
         charController = this.GetComponent<CharacterController>();
         otherChar = FindAnyObjectByType<Player2Controller>();
+        rb = this.GetComponent<Rigidbody>();
         //Debug.Log(hitboxMesh.gameObject.name);
     }
 
@@ -61,6 +63,7 @@ public class Player1Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             charController.Move(-movement * Time.deltaTime);
+            
             if (isPunching == false && isAttacking == false)
             {
                 anim.SetBool("isIdling", false);

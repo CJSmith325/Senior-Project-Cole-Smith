@@ -9,6 +9,8 @@ public class DamageCheckP1 : MonoBehaviour
     public Player1Controller player1;
     public Player2Controller player2;
     public AudioClip punchClip;
+
+    public ParticleSystem p2Particles;
     
     public AudioClip blockedpunchClip;
     
@@ -31,6 +33,7 @@ public class DamageCheckP1 : MonoBehaviour
             {
                 audioSource.PlayOneShot(punchClip, 0.2f);
                 player2.player2Health -= 10;
+                p2Particles.Play();
                 hasHit = true;
                 Debug.Log(player2.player2Health);
                 if (player2.player2Health <= 0)
@@ -45,6 +48,7 @@ public class DamageCheckP1 : MonoBehaviour
             {
                 audioSource.PlayOneShot(blockedpunchClip, 0.2f);
                 player2.player2Health -= 0.5f;
+                p2Particles.Play();
                 hasHit = true;
                 Debug.Log(player2.player2Health);
                 if (player2.player2Health <= 0)
