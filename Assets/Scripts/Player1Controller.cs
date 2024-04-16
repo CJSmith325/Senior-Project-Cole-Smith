@@ -33,6 +33,7 @@ public class Player1Controller : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip jumpClip;
     private Rigidbody rb;
+    public bool scaleFlip;
     
     //private Rigidbody boulderRB;
     //private Vector3 boulderVector = new Vector3();
@@ -51,6 +52,21 @@ public class Player1Controller : MonoBehaviour
 
     void Update()
     {
+
+        Vector3 scale = transform.localScale;
+
+
+        if (otherChar.transform.position.x > transform.position.x)
+        {
+            scale.x = Mathf.Abs(scale.x) * -1 * (scaleFlip ? -1 : 1);
+            scale.z = Mathf.Abs(scale.z) * -1 * (scaleFlip ? -1 : 1);
+        }   
+        else
+        {
+            scale.x = Mathf.Abs(scale.x) * (scaleFlip ? -1 : 1);
+            scale.z = Mathf.Abs(scale.z) * (scaleFlip ? -1 : 1);
+        }
+
         if (player1Health <= 0)
         {
             Destroy(this.gameObject);
@@ -175,6 +191,7 @@ public class Player1Controller : MonoBehaviour
             Debug.Log("Not Blocking");
         }
 
+        transform.localScale = scale;
         
     }
 

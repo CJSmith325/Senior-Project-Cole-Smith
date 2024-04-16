@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 
 public class Player2Controller : MonoBehaviour
@@ -30,6 +31,7 @@ public class Player2Controller : MonoBehaviour
     public DamageCheckP2[] dmgP2;
     public AudioSource audioSource;
     public AudioClip jumpClip;
+    public bool scaleFlip;
 
 
     private void Start()
@@ -41,6 +43,19 @@ public class Player2Controller : MonoBehaviour
 
     void Update()
     {
+
+        Vector3 scale = transform.localScale;
+
+        if (otherChar.transform.position.x > transform.position.x)
+        {
+            scale.x = Mathf.Abs(scale.x) * -1 * (scaleFlip ? -1 : 1);
+            scale.z = Mathf.Abs(scale.z) * -1 * (scaleFlip ? -1 : 1);
+        }
+        else
+        {
+            scale.x = Mathf.Abs(scale.x) * (scaleFlip ? -1 : 1);
+            scale.z = Mathf.Abs(scale.z) * (scaleFlip ? -1 : 1);
+        }
 
         if (player2Health <= 0)
         {
@@ -156,6 +171,8 @@ public class Player2Controller : MonoBehaviour
             hitboxMesh.enabled = false;
             isBlocking = false;
         }
+
+        transform.localScale = scale;
     }
 
     public IEnumerator BasicPunch()

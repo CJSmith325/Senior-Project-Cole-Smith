@@ -1612,6 +1612,7 @@ MonoBehaviour:
   - {fileID: 2046923502}
   audioSource: {fileID: 796486957}
   jumpClip: {fileID: 8300000, guid: bc742864e68de084ca074f2fffa86197, type: 3}
+  scaleFlip: 0
 --- !u!54 &745053408
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14161,6 +14162,7 @@ MonoBehaviour:
   - {fileID: 822129710}
   audioSource: {fileID: 796486957}
   jumpClip: {fileID: 8300000, guid: bc742864e68de084ca074f2fffa86197, type: 3}
+  scaleFlip: 1
 --- !u!54 &1889808957
 Rigidbody:
   m_ObjectHideFlags: 0

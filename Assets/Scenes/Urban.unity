@@ -11556,6 +11556,7 @@ MonoBehaviour:
   - {fileID: 1617870579}
   audioSource: {fileID: 47948770}
   jumpClip: {fileID: 8300000, guid: bc742864e68de084ca074f2fffa86197, type: 3}
+  scaleFlip: 0
 --- !u!143 &1796152205
 CharacterController:
   m_ObjectHideFlags: 0
@@ -17430,6 +17431,7 @@ MonoBehaviour:
   - {fileID: 1829531981}
   audioSource: {fileID: 47948770}
   jumpClip: {fileID: 8300000, guid: bc742864e68de084ca074f2fffa86197, type: 3}
+  scaleFlip: 1
 --- !u!135 &2023018742
 SphereCollider:
   m_ObjectHideFlags: 0
