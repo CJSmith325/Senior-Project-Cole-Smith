@@ -153,6 +153,11 @@ public class Player2Controller : MonoBehaviour
             StartCoroutine(BasicPunch());
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            StartCoroutine(CrossPunch());
+        }
+
         if (Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(SpecialAttack());
@@ -177,50 +182,50 @@ public class Player2Controller : MonoBehaviour
 
     public IEnumerator BasicPunch()
     {
-        isPunching = true;
-        //Vector3 attackRadius = new Vector3(0.4f, 0.4f);
-        //Vector3 attackCenter = attackObject.transform.position;
+        if (isPunching == false)
+        {
+            isPunching = true;
+            //Vector3 attackRadius = new Vector3(0.4f, 0.4f);
+            //Vector3 attackCenter = attackObject.transform.position;
 
-        //Debug.Log("Mesh on");
-        anim.SetBool("isPunching", true);
-        anim.SetBool("isIdling", false);
-        anim.SetBool("isWalking", false);
-        //if (Physics.CheckBox(attackCenter, attackRadius, this.transform.rotation, playerLayer))
-        //{
-        //    if (otherChar.isBlocking == false)
-        //    {
-        //        otherChar.player2Health -= 10;
-        //        Debug.Log(otherChar.player2Health);
-        //        if (otherChar.player2Health <= 0)
-        //        {
-        //            Destroy(otherChar.gameObject);
-        //            GameControl.victoryText = "Player 1 Wins!";
-        //            SceneManager.LoadScene("GameOverScreen");
-        //        }
-        //    }
-        //    if (otherChar.isBlocking == true)
-        //    {
-        //        otherChar.player2Health -= 0.5f;
-        //        Debug.Log(otherChar.player2Health);
-        //        if (otherChar.player2Health <= 0)
-        //        {
-        //            Destroy(otherChar.gameObject);
-        //            GameControl.victoryText = "Player 1 Wins!";
-        //            SceneManager.LoadScene("GameOverScreen");
-        //        }
-        //    }
-        //}
-        //Debug.Log("mesh off");
-        //hitboxMesh.enabled = false;
+            //Debug.Log("Mesh on");
+            anim.SetBool("isPunching", true);
+            anim.SetBool("isIdling", false);
+            anim.SetBool("isWalking", false);
 
-        yield return new WaitForSeconds(0.5f);
-        anim.SetBool("isPunching", false);
-        isPunching = false;
-        // flip flags of damage script
-        dmgP2[0].hasHit = false;
-        dmgP2[1].hasHit = false;
-        anim.SetBool("isIdling", true);
+            yield return new WaitForSeconds(0.5f);
+            anim.SetBool("isPunching", false);
+            isPunching = false;
+            //flip flag of damage check script
+            dmgP2[0].hasHit = false;
+            dmgP2[1].hasHit = false;
+            anim.SetBool("isIdling", true);
+        }
+    }
 
+    public IEnumerator CrossPunch()
+    {
+        if (isPunching == false)
+        {
+            isPunching = true;
+            //Vector3 attackRadius = new Vector3(0.4f, 0.4f);
+            //Vector3 attackCenter = attackObject.transform.position;
+
+            //Debug.Log("Mesh on");
+            anim.SetBool("isCrossPunching", true);
+            anim.SetBool("isIdling", false);
+            anim.SetBool("isWalking", false);
+
+
+
+            yield return new WaitForSeconds(0.5f);
+            anim.SetBool("isCrossPunching", false);
+            isPunching = false;
+            //flip flag of damage check script
+            dmgP2[0].hasHit = false;
+            dmgP2[1].hasHit = false;
+            anim.SetBool("isIdling", true);
+        }
     }
 
     public IEnumerator SpecialAttack()
