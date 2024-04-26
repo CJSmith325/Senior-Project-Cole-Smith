@@ -17,6 +17,7 @@ public class CharacterSelectManager : MonoBehaviour
     public GameObject dragHold;
     public GameObject leshyHold;
     public GameObject akhlutHold;
+    public GameObject mannequinHold;
     // Start is called before the first frame update
     void Start()
     {
@@ -119,6 +120,24 @@ public class CharacterSelectManager : MonoBehaviour
         if (selectCount == 1)
         {
             stringHold.characterTwo = "Leshy";
+            selectCount++;
+        }
+    }
+
+    public void AssignMannequin()
+    {
+        if (selectCount == 0)
+        {
+            stringHold.characterOne = "Mannequin";
+            selectCount++;
+            playerText.text = "Player 2";
+            mannequinHold.SetActive(true);
+            return;
+        }
+
+        if (selectCount == 1)
+        {
+            stringHold.characterTwo = "Mannequin";
             selectCount++;
         }
     }

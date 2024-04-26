@@ -239,7 +239,7 @@ public class Player1Controller : MonoBehaviour
 
 
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.6f);
             anim.SetBool("isCrossPunching", false);
             isPunching = false;
             //flip flag of damage check script

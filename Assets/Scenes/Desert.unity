@@ -8131,6 +8131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   isPunching: 0
+  isCrossPunching: 0
   player1Health: 100
   player1MaxHealth: 100
   player1Attack: 100
@@ -8203,6 +8204,7 @@ MonoBehaviour:
   p2Particles: {fileID: 316547801}
   blockedpunchClip: {fileID: 8300000, guid: 72a9b2a2a3eaa584d9ba3a8e2166f0fd, type: 3}
   audioSource: {fileID: 1382587608}
+  play2Animator: {fileID: 1220892498}
 --- !u!135 &1052390551
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8915,6 +8917,7 @@ MonoBehaviour:
   blockedpunchClip: {fileID: 8300000, guid: 72a9b2a2a3eaa584d9ba3a8e2166f0fd, type: 3}
   p1Particles: {fileID: 1735544480}
   audioSource: {fileID: 1382587608}
+  play1Animator: {fileID: 1052390553}
 --- !u!54 &1220892501
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9482,6 +9485,7 @@ MonoBehaviour:
   blockedpunchClip: {fileID: 8300000, guid: 72a9b2a2a3eaa584d9ba3a8e2166f0fd, type: 3}
   p1Particles: {fileID: 1735544480}
   audioSource: {fileID: 1382587608}
+  play1Animator: {fileID: 1052390553}
 --- !u!54 &1361563553
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16154,6 +16158,7 @@ MonoBehaviour:
   p2Particles: {fileID: 316547801}
   blockedpunchClip: {fileID: 8300000, guid: 72a9b2a2a3eaa584d9ba3a8e2166f0fd, type: 3}
   audioSource: {fileID: 1382587608}
+  play2Animator: {fileID: 1220892498}
 --- !u!1 &1947308457
 GameObject:
   m_ObjectHideFlags: 0
