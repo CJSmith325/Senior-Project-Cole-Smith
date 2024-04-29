@@ -18,10 +18,14 @@ public class CharacterSelectManager : MonoBehaviour
     public GameObject leshyHold;
     public GameObject akhlutHold;
     public GameObject mannequinHold;
+    public AudioClip positiveSound;
+    private AudioSource buttonSource;
+
     // Start is called before the first frame update
     void Start()
     {
         environmentHolder = GameObject.FindAnyObjectByType<EnvironmentHolding>();
+        buttonSource = GameObject.FindGameObjectWithTag("Button").GetComponent<AudioSource>();
         selectCount = 0;
     }
 
@@ -30,6 +34,7 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (selectCount == 2)
         {
+            Destroy(GameObject.FindGameObjectWithTag("Music"));
             SceneManager.LoadScene(environmentHolder.environmentName);
         }
     }
@@ -39,8 +44,9 @@ public class CharacterSelectManager : MonoBehaviour
         if (selectCount == 0)
         {
             stringHold.characterOne = "Sasquatch";
+            buttonSource.PlayOneShot(positiveSound);
             selectCount++;
-            playerText.text = "Player 2";
+            playerText.text = "Player  2";
             sasHold.SetActive(true);
             return;
         }
@@ -58,7 +64,7 @@ public class CharacterSelectManager : MonoBehaviour
         {
             stringHold.characterOne = "Mothman";
             selectCount++;
-            playerText.text = "Player 2";
+            playerText.text = "Player  2";
             mothHold.SetActive(true);
             return;
         }
@@ -76,7 +82,7 @@ public class CharacterSelectManager : MonoBehaviour
         {
             stringHold.characterOne = "Dragon";
             selectCount++;
-            playerText.text = "Player 2";
+            playerText.text = "Player  2";
             dragHold.SetActive(true);
             return;
         }
@@ -94,7 +100,7 @@ public class CharacterSelectManager : MonoBehaviour
         {
             stringHold.characterOne = "Akhlut";
             selectCount++;
-            playerText.text = "Player 2";
+            playerText.text = "Player  2";
             akhlutHold.SetActive(true);
             return;
         }
@@ -112,7 +118,7 @@ public class CharacterSelectManager : MonoBehaviour
         {
             stringHold.characterOne = "Leshy";
             selectCount++;
-            playerText.text = "Player 2";
+            playerText.text = "Player   2";
             leshyHold.SetActive(true);
             return;
         }
@@ -129,8 +135,9 @@ public class CharacterSelectManager : MonoBehaviour
         if (selectCount == 0)
         {
             stringHold.characterOne = "Mannequin";
+            buttonSource.PlayOneShot(positiveSound);
             selectCount++;
-            playerText.text = "Player 2";
+            playerText.text = "Player   2";
             mannequinHold.SetActive(true);
             return;
         }
@@ -138,6 +145,7 @@ public class CharacterSelectManager : MonoBehaviour
         if (selectCount == 1)
         {
             stringHold.characterTwo = "Mannequin";
+            buttonSource.PlayOneShot(positiveSound);
             selectCount++;
         }
     }

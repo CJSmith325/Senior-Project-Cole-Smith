@@ -21,7 +21,7 @@ public class DamageCheckP1 : MonoBehaviour
     private bool animBool;
 
     private float targetTime = 0.28f;
-    private float punchTime = 0.72f;
+    private float punchTime = 0.9f;
 
 
     private void Update()
@@ -33,7 +33,7 @@ public class DamageCheckP1 : MonoBehaviour
         }
         if (player1.isPunching == false && punchTime == 0)
         {
-            punchTime = 0.72f;
+            punchTime = 0.9f;
         }
 
         if (animBool == true)
@@ -71,7 +71,7 @@ public class DamageCheckP1 : MonoBehaviour
                     GameControl.victoryText = "Player 1 Wins!";
                     SceneManager.LoadScene("GameOverScreen");
                 }
-                //player1.isPunching = false;
+                player1.isPunching = false;
             }
             if (player2.isBlocking == true)
             {
@@ -89,7 +89,7 @@ public class DamageCheckP1 : MonoBehaviour
                     SceneManager.LoadScene("GameOverScreen");
                 }
                 
-                //player1.isPunching=false;
+                player1.isPunching=false;
             }
             //player1.isPunching = false;
             return;

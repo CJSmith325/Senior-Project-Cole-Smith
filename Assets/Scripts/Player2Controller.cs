@@ -32,7 +32,7 @@ public class Player2Controller : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip jumpClip;
     public bool scaleFlip;
-
+    public AudioClip boulderWhoosh;
 
     private void Start()
     {
@@ -66,7 +66,7 @@ public class Player2Controller : MonoBehaviour
 
         Vector3 movement = new Vector3(moveSpeed, 0f, 0f);
         // movement
-        if (Input.GetKey(KeyCode.L))
+        if (Input.GetKey(KeyCode.L) && this.transform.position.x <= otherChar.transform.position.x + 18.4f)
         {
             charController.Move(movement * Time.deltaTime);
             if (isPunching == false && isAttacking == false)
@@ -85,7 +85,7 @@ public class Player2Controller : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.J))
+        if (Input.GetKey(KeyCode.J) && this.transform.position.x + 18.4f >= otherChar.transform.position.x)
         {
            charController.Move(-movement * Time.deltaTime);
 
@@ -244,6 +244,7 @@ public class Player2Controller : MonoBehaviour
             boulderHolder = Instantiate(boulderPrefab, attackCenter, Quaternion.identity);
             boulderHolder.AddComponent<BoulderCollisionP2>();
             boulderHolder.GetComponent<Rigidbody>().AddRelativeForce(-300f, 400f, 0);
+            audioSource.PlayOneShot(boulderWhoosh);
             // check bouldercollision for rest of code
             Debug.Log("Special ATTACK");
             player2Attack = 0;

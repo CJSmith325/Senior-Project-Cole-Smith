@@ -35,7 +35,8 @@ public class Player1Controller : MonoBehaviour
     public AudioClip jumpClip;
     private Rigidbody rb;
     public bool scaleFlip;
-    
+    public AudioClip boulderWhoosh;
+
     //private Rigidbody boulderRB;
     //private Vector3 boulderVector = new Vector3();
 
@@ -77,7 +78,7 @@ public class Player1Controller : MonoBehaviour
 
         Vector3 movement = new Vector3(moveSpeed, 0f, 0f);
         // movement
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && this.transform.position.x + 18.4f >= otherChar.transform.position.x)
         {
             charController.Move(-movement * Time.deltaTime);
             
@@ -99,7 +100,7 @@ public class Player1Controller : MonoBehaviour
                 
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && this.transform.position.x <= otherChar.transform.position.x + 18.4f)
         {
             charController.Move(movement * Time.deltaTime);
 
@@ -265,6 +266,7 @@ public class Player1Controller : MonoBehaviour
             boulderHolder = Instantiate(boulderPrefab, attackCenter, Quaternion.identity);
             boulderHolder.AddComponent<BoulderCollisionP1>();
             boulderHolder.GetComponent<Rigidbody>().AddRelativeForce(300f, 400f, 0);
+            audioSource.PlayOneShot(boulderWhoosh);
             // check bouldercollision for rest of code
             Debug.Log("Special ATTACK");
             player1Attack = 0;

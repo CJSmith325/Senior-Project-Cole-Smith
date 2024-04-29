@@ -70,7 +70,7 @@ public class DamageCheckP2 : MonoBehaviour
                     GameControl.victoryText = "Player 2 Wins!";
                     SceneManager.LoadScene("GameOverScreen");
                 }
-                //player2.isPunching = false;
+                player2.isPunching = false;
             }
             if (player1.isBlocking == true)
             {
@@ -88,7 +88,7 @@ public class DamageCheckP2 : MonoBehaviour
                     SceneManager.LoadScene("GameOverScreen");
                 }
 
-                //player2.isPunching = false;
+                player2.isPunching = false;
             }
             //player2.isPunching = false;
             return;

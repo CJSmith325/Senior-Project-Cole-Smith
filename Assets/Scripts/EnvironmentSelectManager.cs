@@ -7,6 +7,14 @@ using UnityEngine.SceneManagement;
 public class EnvironmentSelectManager : MonoBehaviour
 {
     public EnvironmentHolding environmentHolder;
+    private AudioSource buttonSource;
+    public AudioClip positiveSound;
+
+    private void Start()
+    {
+        buttonSource = GameObject.FindGameObjectWithTag("Button").GetComponent<AudioSource>();
+
+    }
 
     public void AssignJungle()
     {
@@ -15,7 +23,7 @@ public class EnvironmentSelectManager : MonoBehaviour
         {
             Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
         }
-
+        buttonSource.PlayOneShot(positiveSound);
         SceneManager.LoadScene("CharacterSelectScreen");
     }
     
@@ -26,7 +34,7 @@ public class EnvironmentSelectManager : MonoBehaviour
         {
             Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
         }
-
+        buttonSource.PlayOneShot(positiveSound);
         SceneManager.LoadScene("CharacterSelectScreen");
     }
 
@@ -37,7 +45,7 @@ public class EnvironmentSelectManager : MonoBehaviour
         {
             Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
         }
-
+        buttonSource.PlayOneShot(positiveSound);
         SceneManager.LoadScene("CharacterSelectScreen");
     }
 }
