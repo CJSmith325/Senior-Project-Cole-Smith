@@ -8,6 +8,8 @@ TagManager:
   - Player2
   - Music
   - Button
+  - Boulder
+  - Ground
   layers:
   - Default
   - TransparentFX

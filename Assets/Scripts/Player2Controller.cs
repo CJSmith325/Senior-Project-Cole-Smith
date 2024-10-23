@@ -39,6 +39,7 @@ public class Player2Controller : MonoBehaviour
         //hitboxMesh = GameObject.Find("meshCubeP2").GetComponent<MeshRenderer>();
         
         otherChar = FindAnyObjectByType<Player1Controller>();
+        anim.SetBool("isGrounded", true);
     }
 
     void Update()
@@ -239,7 +240,7 @@ public class Player2Controller : MonoBehaviour
             anim.SetBool("isIdling", false);
             anim.SetBool("isWalking", false);
             anim.SetBool("isAttacking", true);
-            yield return new WaitForSeconds(2.3f);
+            yield return new WaitForSeconds(0.8f);
             Vector3 attackCenter = attackObject.transform.position;
             boulderHolder = Instantiate(boulderPrefab, attackCenter, Quaternion.identity);
             boulderHolder.AddComponent<BoulderCollisionP2>();

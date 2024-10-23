@@ -21,7 +21,7 @@ public class DamageCheckP2 : MonoBehaviour
     private bool animBool;
 
     private float targetTime = 0.28f;
-    private float punchTime = 0.72f;
+    private float punchTime = 0.9f;
 
     private void Update()
     {
@@ -32,7 +32,7 @@ public class DamageCheckP2 : MonoBehaviour
         }
         if (player2.isPunching == false && punchTime <= 0)
         {
-            punchTime = 0.72f;
+            punchTime = 0.9f;
         }
 
         if (animBool == true)
@@ -48,12 +48,12 @@ public class DamageCheckP2 : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
         Debug.Log("Collision detected");
-        if (player2.isPunching == true && collision.gameObject.tag == "Player1" && hasHit == false && punchTime <= 0)
+        if (player2.isPunching == true && other.gameObject.tag == "Player1" && hasHit == false && punchTime <= 0)
         {
-            
+
             //game control
             if (player1.isBlocking == false)
             {
@@ -94,4 +94,51 @@ public class DamageCheckP2 : MonoBehaviour
             return;
         }
     }
+
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    Debug.Log("Collision detected");
+    //    if (player2.isPunching == true && collision.gameObject.tag == "Player1" && hasHit == false && punchTime <= 0)
+    //    {
+            
+    //        //game control
+    //        if (player1.isBlocking == false)
+    //        {
+    //            audioSource.PlayOneShot(punchClip, 0.2f);
+    //            player1.player1Health -= 10;
+    //            play1Animator.SetBool("isHit", true);
+    //            animBool = true;
+    //            p1Particles.Play();
+    //            hasHit = true;
+    //            Debug.Log(player1.player1Health);
+    //            if (player1.player1Health <= 0)
+    //            {
+    //                Destroy(player1.gameObject);
+    //                GameControl.victoryText = "Player 2 Wins!";
+    //                SceneManager.LoadScene("GameOverScreen");
+    //            }
+    //            player2.isPunching = false;
+    //        }
+    //        if (player1.isBlocking == true)
+    //        {
+    //            audioSource.PlayOneShot(blockedpunchClip, 0.2f);
+    //            player1.player1Health -= 0.5f;
+    //            play1Animator.SetBool("isHit", true);
+    //            animBool = true;
+    //            p1Particles.Play();
+    //            hasHit = true;
+    //            Debug.Log(player1.player1Health);
+    //            if (player1.player1Health <= 0)
+    //            {
+    //                Destroy(player2.gameObject);
+    //                GameControl.victoryText = "Player 2 Wins!";
+    //                SceneManager.LoadScene("GameOverScreen");
+    //            }
+
+    //            player2.isPunching = false;
+    //        }
+    //        //player2.isPunching = false;
+    //        return;
+    //    }
+    //}
 }

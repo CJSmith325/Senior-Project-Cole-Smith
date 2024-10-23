@@ -17,10 +17,15 @@ public class BoulderCollisionP1 : MonoBehaviour
         {
 
         }
+        
+        else if (other.tag == "Ground")
+        {
+            Destroy(this.gameObject);
+        }
 
         else
         {
-            Destroy(this.gameObject);
+            
         }
     }
 }

@@ -50,6 +50,7 @@ public class Player1Controller : MonoBehaviour
         otherChar = FindAnyObjectByType<Player2Controller>();
         rb = this.GetComponent<Rigidbody>();
         //Debug.Log(hitboxMesh.gameObject.name);
+        anim.SetBool("isGrounded", true);
     }
 
     void Update()
@@ -131,6 +132,7 @@ public class Player1Controller : MonoBehaviour
         {
             if (Velocity.y < 0)
             {
+                //Debug.Log("grounded");
                 Velocity.y = -6f;
                 anim.SetBool("isGrounded", true);
             }
@@ -261,7 +263,7 @@ public class Player1Controller : MonoBehaviour
             anim.SetBool("isIdling", false);
             anim.SetBool("isWalking", false);
             anim.SetBool("isAttacking", true);
-            yield return new WaitForSeconds(2.8f);
+            yield return new WaitForSeconds(0.8f);
             Vector3 attackCenter = attackObject.transform.position;
             boulderHolder = Instantiate(boulderPrefab, attackCenter, Quaternion.identity);
             boulderHolder.AddComponent<BoulderCollisionP1>();

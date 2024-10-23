@@ -49,12 +49,14 @@ public class DamageCheckP1 : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+
+
+    private void OnTriggerStay(Collider other)
     {
         Debug.Log("Collision detected");
-        if (player1.isPunching == true && collision.gameObject.tag == "Player2" && hasHit == false && punchTime <= 0)
+        if (player1.isPunching == true && other.gameObject.tag == "Player2" && hasHit == false && punchTime <= 0)
         {
-            
+
             //game control
             if (player2.isBlocking == false)
             {
@@ -88,12 +90,106 @@ public class DamageCheckP1 : MonoBehaviour
                     GameControl.victoryText = "Player 1 Wins!";
                     SceneManager.LoadScene("GameOverScreen");
                 }
-                
-                player1.isPunching=false;
+
+                player1.isPunching = false;
             }
             //player1.isPunching = false;
             return;
         }
     }
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    Debug.Log("Collision detected");
+    //    if (player1.isPunching == true && other.gameObject.tag == "Player2" && hasHit == false && punchTime <= 0)
+    //    {
+
+    //        //game control
+    //        if (player2.isBlocking == false)
+    //        {
+    //            audioSource.PlayOneShot(punchClip, 0.2f);
+    //            player2.player2Health -= 10;
+    //            play2Animator.SetBool("isHit", true);
+    //            animBool = true;
+    //            p2Particles.Play();
+    //            hasHit = true;
+    //            Debug.Log(player2.player2Health);
+    //            if (player2.player2Health <= 0)
+    //            {
+    //                Destroy(player2.gameObject);
+    //                GameControl.victoryText = "Player 1 Wins!";
+    //                SceneManager.LoadScene("GameOverScreen");
+    //            }
+    //            player1.isPunching = false;
+    //        }
+    //        if (player2.isBlocking == true)
+    //        {
+    //            audioSource.PlayOneShot(blockedpunchClip, 0.2f);
+    //            player2.player2Health -= 0.5f;
+    //            play2Animator.SetBool("isHit", true);
+    //            animBool = true;
+    //            p2Particles.Play();
+    //            hasHit = true;
+    //            Debug.Log(player2.player2Health);
+    //            if (player2.player2Health <= 0)
+    //            {
+    //                Destroy(player2.gameObject);
+    //                GameControl.victoryText = "Player 1 Wins!";
+    //                SceneManager.LoadScene("GameOverScreen");
+    //            }
+
+    //            player1.isPunching = false;
+    //        }
+    //        //player1.isPunching = false;
+    //        return;
+    //    }
+    //}
+
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    Debug.Log("Collision detected");
+    //    if (player1.isPunching == true && collision.gameObject.tag == "Player2" && hasHit == false && punchTime <= 0)
+    //    {
+
+    //        //game control
+    //        if (player2.isBlocking == false)
+    //        {
+    //            audioSource.PlayOneShot(punchClip, 0.2f);
+    //            player2.player2Health -= 10;
+    //            play2Animator.SetBool("isHit", true);
+    //            animBool = true;
+    //            p2Particles.Play();
+    //            hasHit = true;
+    //            Debug.Log(player2.player2Health);
+    //            if (player2.player2Health <= 0)
+    //            {
+    //                Destroy(player2.gameObject);
+    //                GameControl.victoryText = "Player 1 Wins!";
+    //                SceneManager.LoadScene("GameOverScreen");
+    //            }
+    //            player1.isPunching = false;
+    //        }
+    //        if (player2.isBlocking == true)
+    //        {
+    //            audioSource.PlayOneShot(blockedpunchClip, 0.2f);
+    //            player2.player2Health -= 0.5f;
+    //            play2Animator.SetBool("isHit", true);
+    //            animBool = true;
+    //            p2Particles.Play();
+    //            hasHit = true;
+    //            Debug.Log(player2.player2Health);
+    //            if (player2.player2Health <= 0)
+    //            {
+    //                Destroy(player2.gameObject);
+    //                GameControl.victoryText = "Player 1 Wins!";
+    //                SceneManager.LoadScene("GameOverScreen");
+    //            }
+
+    //            player1.isPunching = false;
+    //        }
+    //        //player1.isPunching = false;
+    //        return;
+    //    }
+    //}
 }
 

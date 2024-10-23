@@ -1736,9 +1736,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Animations and Mannequin Model: all found on mixamo.com. All music/sounds
-    are royalty free on youtube. All images were found royalty free on the internet.
-    Custom font used from google fonts.'
+  m_text: 'Animations and Model: Model found on sketchfab, animations all made by
+    myself
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
