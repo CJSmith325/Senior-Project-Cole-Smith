@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,7 +30,9 @@ public class DamageCheckP1 : MonoBehaviour
     
     private CinemachineBasicMultiChannelPerlin cinemachinePerlin;
     private float shakeTimer;
+    private float shakeDur;
 
+    public float growthRate = 0.1f;
     public float shakeDuration = 8f;
     public float shakeAmplitude = 1f;  // Intensity of the shake
     public float shakeFrequency = 1f;  // Speed of the shake
@@ -69,6 +72,9 @@ public class DamageCheckP1 : MonoBehaviour
         if (shakeTimer > 0)
         {
             shakeTimer -= Time.deltaTime;
+            shakeDur += Time.deltaTime;
+            cinemachinePerlin.m_AmplitudeGain += Mathf.Exp(growthRate * shakeDur);
+            cinemachinePerlin.m_FrequencyGain += Mathf.Exp(growthRate * shakeDur);
 
             if (shakeTimer <= 0f)
             {
@@ -82,14 +88,14 @@ public class DamageCheckP1 : MonoBehaviour
     public void TriggerShake()
     {
         shakeTimer = shakeDuration;
-        cinemachinePerlin.m_AmplitudeGain = shakeAmplitude;
-        cinemachinePerlin.m_FrequencyGain = shakeFrequency;
+        //cinemachinePerlin.m_AmplitudeGain = shakeAmplitude;
+        //cinemachinePerlin.m_FrequencyGain = shakeFrequency;
     }
 
     private IEnumerator WaitCoupleSeconds()
     {
-        yield return new WaitForSecondsRealtime(2f);
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(3f);
+        
         GameControl.victoryText = "Player 1 Wins!";
         SceneManager.LoadScene("GameOverScreen");
     }

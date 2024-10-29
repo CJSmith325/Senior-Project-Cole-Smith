@@ -72,9 +72,8 @@ public class Player1Controller : MonoBehaviour
 
         if (player1Health <= 0)
         {
-            Destroy(this.gameObject);
-            GameControl.victoryText = "Player 2 Wins!";
-            SceneManager.LoadScene("GameOverScreen");
+            this.gameObject.GetComponent<Player1Controller>().enabled = false;
+            otherChar.enabled = false;
         }
 
         Vector3 movement = new Vector3(moveSpeed, 0f, 0f);

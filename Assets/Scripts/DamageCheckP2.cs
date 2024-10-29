@@ -1,6 +1,8 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +24,23 @@ public class DamageCheckP2 : MonoBehaviour
 
     private float targetTime = 0.28f;
     private float punchTime = 0.9f;
+
+    private CinemachineBasicMultiChannelPerlin cinemachinePerlin;
+    private float shakeTimer;
+    private float shakeDur;
+
+    public float growthRate = 2f;
+    public float shakeDuration = 8f;
+    public float shakeAmplitude = 1f;  // Intensity of the shake
+    public float shakeFrequency = 1f;  // Speed of the shake
+
+    private void Start()
+    {
+        CinemachineVirtualCamera virtualCamera = FindAnyObjectByType<CinemachineVirtualCamera>().GetComponent<CinemachineVirtualCamera>();
+        Debug.Log(virtualCamera);
+        cinemachinePerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        Debug.Log(cinemachinePerlin);
+    }
 
     private void Update()
     {
@@ -46,6 +65,37 @@ public class DamageCheckP2 : MonoBehaviour
                 targetTime = 0.28f;
             }
         }
+        if (shakeTimer > 0)
+        {
+            shakeTimer -= Time.deltaTime;
+            shakeDur += Time.deltaTime;
+            cinemachinePerlin.m_AmplitudeGain = shakeAmplitude * Mathf.Exp(growthRate * shakeDur);
+            cinemachinePerlin.m_FrequencyGain = shakeFrequency * Mathf.Exp(growthRate * shakeDur);
+
+            if (shakeTimer <= 0f)
+            {
+                // Reset the shake values
+                cinemachinePerlin.m_AmplitudeGain = 0f;
+                cinemachinePerlin.m_FrequencyGain = 0f;
+            }
+        }
+    }
+
+    public void TriggerShake()
+    {
+        shakeTimer = shakeDuration;
+        //cinemachinePerlin.m_AmplitudeGain = shakeAmplitude;
+        //cinemachinePerlin.m_FrequencyGain = shakeFrequency;
+
+        
+    }
+
+    private IEnumerator WaitCoupleSeconds()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        
+        GameControl.victoryText = "Player 2 Wins!";
+        SceneManager.LoadScene("GameOverScreen");
     }
 
     private void OnTriggerStay(Collider other)
@@ -66,9 +116,9 @@ public class DamageCheckP2 : MonoBehaviour
                 Debug.Log(player1.player1Health);
                 if (player1.player1Health <= 0)
                 {
-                    Destroy(player1.gameObject);
-                    GameControl.victoryText = "Player 2 Wins!";
-                    SceneManager.LoadScene("GameOverScreen");
+                    Time.timeScale = 0.5f;
+                    TriggerShake();
+                    StartCoroutine(WaitCoupleSeconds());
                 }
                 player2.isPunching = false;
             }
@@ -83,9 +133,9 @@ public class DamageCheckP2 : MonoBehaviour
                 Debug.Log(player1.player1Health);
                 if (player1.player1Health <= 0)
                 {
-                    Destroy(player2.gameObject);
-                    GameControl.victoryText = "Player 2 Wins!";
-                    SceneManager.LoadScene("GameOverScreen");
+                    Time.timeScale = 0.5f;
+                    TriggerShake();
+                    StartCoroutine(WaitCoupleSeconds());
                 }
 
                 player2.isPunching = false;

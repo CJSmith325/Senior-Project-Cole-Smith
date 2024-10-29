@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -743, y: 478}
+  m_AnchoredPosition: {x: -743, y: 445.00006}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6302619
@@ -552,7 +552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 776, y: 435}
+  m_AnchoredPosition: {x: 776, y: 402.00006}
   m_SizeDelta: {x: 256, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &39456106
@@ -741,7 +741,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 743, y: 478}
+  m_AnchoredPosition: {x: 743, y: 445.00006}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &254839722 stripped
@@ -5841,7 +5841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -879, y: 368}
+  m_AnchoredPosition: {x: -879, y: 335.00006}
   m_SizeDelta: {x: 256, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &409458354
@@ -6814,7 +6814,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624514176}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000029984738, y: 0.016686529, z: -0.0000005004109, w: 0.9998608}
+  m_LocalRotation: {x: 0.000029995439, y: 0.016686529, z: -0.0000005005894, w: 0.9998608}
   m_LocalPosition: {x: -3.227363, y: 1.7121426, z: -1.4513807}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7878,7 +7878,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 43.94589
+  field of view: 41.146076
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -7904,7 +7904,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048983041}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000029984738, y: 0.016686529, z: -0.0000005004109, w: 0.9998608}
+  m_LocalRotation: {x: 0.000029995439, y: 0.016686529, z: -0.0000005005894, w: 0.9998608}
   m_LocalPosition: {x: -3.227363, y: 1.7121426, z: -1.4513807}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8272,6 +8272,9 @@ MonoBehaviour:
   blockedpunchClip: {fileID: 8300000, guid: 72a9b2a2a3eaa584d9ba3a8e2166f0fd, type: 3}
   audioSource: {fileID: 1382587608}
   play2Animator: {fileID: 1220892498}
+  shakeDuration: 8
+  shakeAmplitude: 1
+  shakeFrequency: 1
 --- !u!135 &1052390551
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8990,6 +8993,9 @@ MonoBehaviour:
   p1Particles: {fileID: 1735544480}
   audioSource: {fileID: 1382587608}
   play1Animator: {fileID: 1052390553}
+  shakeDuration: 8
+  shakeAmplitude: 1
+  shakeFrequency: 1
 --- !u!54 &1220892501
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9539,7 +9545,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 488}
+  m_AnchoredPosition: {x: 0, y: 455}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1355840227
@@ -9661,6 +9667,9 @@ MonoBehaviour:
   p1Particles: {fileID: 1735544480}
   audioSource: {fileID: 1382587608}
   play1Animator: {fileID: 1052390553}
+  shakeDuration: 8
+  shakeAmplitude: 1
+  shakeFrequency: 1
 --- !u!54 &1361563553
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9806,7 +9815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -776, y: 435}
+  m_AnchoredPosition: {x: -776, y: 402.00006}
   m_SizeDelta: {x: 256, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1375952382
@@ -10568,7 +10577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 879, y: 368}
+  m_AnchoredPosition: {x: 879, y: 335.00006}
   m_SizeDelta: {x: 256, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1574029416
@@ -16418,6 +16427,9 @@ MonoBehaviour:
   blockedpunchClip: {fileID: 8300000, guid: 72a9b2a2a3eaa584d9ba3a8e2166f0fd, type: 3}
   audioSource: {fileID: 1382587608}
   play2Animator: {fileID: 1220892498}
+  shakeDuration: 8
+  shakeAmplitude: 1
+  shakeFrequency: 1
 --- !u!1 &1947308457
 GameObject:
   m_ObjectHideFlags: 0
@@ -16908,10 +16920,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
