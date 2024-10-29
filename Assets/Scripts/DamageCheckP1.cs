@@ -31,15 +31,16 @@ public class DamageCheckP1 : MonoBehaviour
     private float shakeTimer;
 
     public float shakeDuration = 8f;
-    public float shakeAmplitude = 4f;  // Intensity of the shake
-    public float shakeFrequency = 4f;  // Speed of the shake
+    public float shakeAmplitude = 1f;  // Intensity of the shake
+    public float shakeFrequency = 1f;  // Speed of the shake
 
 
     private void Start()
     {
         CinemachineVirtualCamera virtualCamera = FindAnyObjectByType<CinemachineVirtualCamera>().GetComponent<CinemachineVirtualCamera>();
-        
+        Debug.Log(virtualCamera);
         cinemachinePerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        Debug.Log(cinemachinePerlin);
     }
 
     private void Update()
@@ -87,7 +88,10 @@ public class DamageCheckP1 : MonoBehaviour
 
     private IEnumerator WaitCoupleSeconds()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(2f);
+        GameControl.victoryText = "Player 1 Wins!";
+        SceneManager.LoadScene("GameOverScreen");
     }
 
 
@@ -114,10 +118,9 @@ public class DamageCheckP1 : MonoBehaviour
 
                     Time.timeScale = 0.5f;
                     TriggerShake();
-                    WaitCoupleSeconds();
+                    StartCoroutine(WaitCoupleSeconds());
 
-                    GameControl.victoryText = "Player 1 Wins!";
-                    SceneManager.LoadScene("GameOverScreen");
+                   
                 }
                 player1.isPunching = false;
             }
@@ -136,10 +139,9 @@ public class DamageCheckP1 : MonoBehaviour
                     //Destroy(player2.gameObject);
                     Time.timeScale = 0.5f;
                     TriggerShake();
-                    WaitCoupleSeconds();
+                    StartCoroutine(WaitCoupleSeconds());
 
-                    GameControl.victoryText = "Player 1 Wins!";
-                    SceneManager.LoadScene("GameOverScreen");
+                    
                 }
 
                 player1.isPunching = false;
