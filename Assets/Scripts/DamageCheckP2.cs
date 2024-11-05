@@ -98,6 +98,23 @@ public class DamageCheckP2 : MonoBehaviour
         SceneManager.LoadScene("GameOverScreen");
     }
 
+    IEnumerator DecreaseTimeScale()
+    {
+        float startScale = 1f;
+        float endScale = 0f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < shakeDuration)
+        {
+            elapsedTime += (3f * Time.unscaledDeltaTime);
+            Time.timeScale = Mathf.Lerp(startScale, endScale, elapsedTime / shakeDuration);
+            Debug.Log(Time.timeScale);
+            yield return null;
+        }
+
+        Time.timeScale = endScale; // Ensure the final value is exactly 0
+    }
+
     private void OnTriggerStay(Collider other)
     {
         Debug.Log("Collision detected");
@@ -116,8 +133,9 @@ public class DamageCheckP2 : MonoBehaviour
                 Debug.Log(player1.player1Health);
                 if (player1.player1Health <= 0)
                 {
-                    Time.timeScale = 0.5f;
+                    
                     TriggerShake();
+                    StartCoroutine(DecreaseTimeScale());
                     StartCoroutine(WaitCoupleSeconds());
                 }
                 player2.isPunching = false;
@@ -133,8 +151,9 @@ public class DamageCheckP2 : MonoBehaviour
                 Debug.Log(player1.player1Health);
                 if (player1.player1Health <= 0)
                 {
-                    Time.timeScale = 0.5f;
+                    
                     TriggerShake();
+                    StartCoroutine(DecreaseTimeScale());
                     StartCoroutine(WaitCoupleSeconds());
                 }
 

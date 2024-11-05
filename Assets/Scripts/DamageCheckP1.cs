@@ -33,7 +33,7 @@ public class DamageCheckP1 : MonoBehaviour
     private float shakeDur;
 
     public float growthRate = 0.1f;
-    public float shakeDuration = 8f;
+    public float shakeDuration = 3f;
     public float shakeAmplitude = 1f;  // Intensity of the shake
     public float shakeFrequency = 1f;  // Speed of the shake
 
@@ -73,8 +73,9 @@ public class DamageCheckP1 : MonoBehaviour
         {
             shakeTimer -= Time.deltaTime;
             shakeDur += Time.deltaTime;
-            cinemachinePerlin.m_AmplitudeGain += Mathf.Exp(growthRate * shakeDur);
-            cinemachinePerlin.m_FrequencyGain += Mathf.Exp(growthRate * shakeDur);
+            cinemachinePerlin.m_AmplitudeGain += Time.deltaTime;
+            cinemachinePerlin.m_FrequencyGain += Time.deltaTime;
+            
 
             if (shakeTimer <= 0f)
             {
@@ -100,7 +101,22 @@ public class DamageCheckP1 : MonoBehaviour
         SceneManager.LoadScene("GameOverScreen");
     }
 
+    IEnumerator DecreaseTimeScale()
+    {
+        float startScale = 1f;
+        float endScale = 0f;
+        float elapsedTime = 0f;
 
+        while (elapsedTime < shakeDuration)
+        {
+            elapsedTime += (3f*Time.unscaledDeltaTime);
+            Time.timeScale = Mathf.Lerp(startScale, endScale, elapsedTime / shakeDuration);
+            Debug.Log(Time.timeScale);
+            yield return null;
+        }
+
+        Time.timeScale = endScale; // Ensure the final value is exactly 0
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -122,8 +138,9 @@ public class DamageCheckP1 : MonoBehaviour
                 {
                     //Destroy(player2.gameObject);
 
-                    Time.timeScale = 0.5f;
+                    
                     TriggerShake();
+                    StartCoroutine(DecreaseTimeScale());
                     StartCoroutine(WaitCoupleSeconds());
 
                    
@@ -143,8 +160,9 @@ public class DamageCheckP1 : MonoBehaviour
                 {
 
                     //Destroy(player2.gameObject);
-                    Time.timeScale = 0.5f;
+                    
                     TriggerShake();
+                    StartCoroutine(DecreaseTimeScale());
                     StartCoroutine(WaitCoupleSeconds());
 
                     

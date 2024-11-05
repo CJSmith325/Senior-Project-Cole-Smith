@@ -1392,10 +1392,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1459,6 +1459,7 @@ RectTransform:
   - {fileID: 1144134112}
   - {fileID: 1837990537}
   - {fileID: 1618529769}
+  - {fileID: 1843308569}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3523,11 +3524,11 @@ Transform:
   m_GameObject: {fileID: 1843308567}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 123.26526, y: 402.3778, z: 3.3961046}
+  m_LocalPosition: {x: -836.73474, y: -137.6222, z: 3.3961046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 792750119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2024405327
 GameObject:
@@ -3818,6 +3819,5 @@ SceneRoots:
   - {fileID: 473955872}
   - {fileID: 860291343}
   - {fileID: 792750119}
-  - {fileID: 1843308569}
   - {fileID: 1125092703}
   - {fileID: 544363046}

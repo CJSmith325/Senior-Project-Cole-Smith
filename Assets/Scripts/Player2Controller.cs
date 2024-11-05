@@ -33,6 +33,9 @@ public class Player2Controller : MonoBehaviour
     public AudioClip jumpClip;
     public bool scaleFlip;
     public AudioClip boulderWhoosh;
+    public AudioClip jabWhoosh;
+    public AudioClip crossWhoosh;
+    public AudioSource footStepSource;
 
     private void Start()
     {
@@ -76,6 +79,7 @@ public class Player2Controller : MonoBehaviour
             {
                 anim.SetBool("isIdling", false);
                 anim.SetBool("isWalking", true);
+                footStepSource.Play();
             }
         }
 
@@ -85,6 +89,7 @@ public class Player2Controller : MonoBehaviour
             {
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isIdling", true);
+                footStepSource.Stop();
             }
         }
 
@@ -96,7 +101,8 @@ public class Player2Controller : MonoBehaviour
            {
                 anim.SetBool("isIdling", false);
                 anim.SetBool("isWalking", true);
-           }
+                footStepSource.Play();
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.J))
@@ -105,6 +111,7 @@ public class Player2Controller : MonoBehaviour
             {
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isIdling", true);
+                footStepSource.Stop();
             }
         }
 
@@ -170,13 +177,13 @@ public class Player2Controller : MonoBehaviour
         // block
         if (Input.GetKey(KeyCode.K))
         {
-            hitboxMesh.enabled = true;
+            //hitboxMesh.enabled = true;
             isBlocking = true;
         }
 
         if (Input.GetKeyUp(KeyCode.K))
         {
-            hitboxMesh.enabled = false;
+            //hitboxMesh.enabled = false;
             isBlocking = false;
         }
 
@@ -195,7 +202,7 @@ public class Player2Controller : MonoBehaviour
             anim.SetBool("isPunching", true);
             anim.SetBool("isIdling", false);
             anim.SetBool("isWalking", false);
-
+            audioSource.PlayOneShot(jabWhoosh, 1f);
             yield return new WaitForSeconds(0.5f);
             anim.SetBool("isPunching", false);
             isPunching = false;
@@ -218,7 +225,7 @@ public class Player2Controller : MonoBehaviour
             anim.SetBool("isCrossPunching", true);
             anim.SetBool("isIdling", false);
             anim.SetBool("isWalking", false);
-
+            audioSource.PlayOneShot(crossWhoosh, 1f);
 
 
             yield return new WaitForSeconds(0.5f);
