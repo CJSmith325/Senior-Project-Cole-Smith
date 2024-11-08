@@ -17,6 +17,7 @@ public class BoulderCollisionP1 : MonoBehaviour
     public float shakeDuration = 3f;
     public float shakeAmplitude = 1f;  // Intensity of the shake
     public float shakeFrequency = 1f;  // Speed of the shake
+    private bool hasContacted = false;
 
 
     private void Start()
@@ -83,10 +84,11 @@ public class BoulderCollisionP1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player2")
+        if (other.tag == "Player2" && hasContacted == false)
         {
             play2 = other.GetComponent<Player2Controller>();
             play2.player2Health -= 20;
+            hasContacted = true;
             if (play2.player2Health <= 0)
             {
                 //Destroy(player2.gameObject);
@@ -97,7 +99,7 @@ public class BoulderCollisionP1 : MonoBehaviour
                 StartCoroutine(DecreaseTimeScale());
                 StartCoroutine(WaitCoupleSeconds());
 
-
+                return;
             }
 
             Destroy(this.gameObject);
@@ -108,7 +110,7 @@ public class BoulderCollisionP1 : MonoBehaviour
 
         }
         
-        else if (other.tag == "Ground")
+        else if (other.tag == "Ground" && hasContacted == false)
         {
             Destroy(this.gameObject);
         }
