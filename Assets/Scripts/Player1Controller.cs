@@ -39,6 +39,7 @@ public class Player1Controller : MonoBehaviour
     public AudioClip jabWhoosh;
     public AudioClip crossWhoosh;
     public AudioSource footStepSource;
+    private float jumpTimer;
 
     //private Rigidbody boulderRB;
     //private Vector3 boulderVector = new Vector3();
@@ -143,7 +144,7 @@ public class Player1Controller : MonoBehaviour
                 anim.SetBool("isGrounded", true);
             }
 
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.W))
             {
                 audioSource.PlayOneShot(jumpClip, 0.2f);
                 Velocity.y = jumpForce;
@@ -162,8 +163,27 @@ public class Player1Controller : MonoBehaviour
                 Velocity.y -= 19.62f * Time.deltaTime;
                 
             }
-
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                anim.SetBool("isJumpAttacking", true);
+                jumpTimer = 1.5f;
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                anim.SetBool("isJumpAttacking", true);
+                jumpTimer = 1.5f;
+            }
         }
+
+        if (jumpTimer > 0)
+        {
+            jumpTimer -= Time.deltaTime;
+        }
+        if (jumpTimer <= 0)
+        {
+            anim.SetBool("isJumpAttacking", false);
+        }
+
         // move and jump with given input
         //charController.Move(movement.normalized * moveSpeed * Time.deltaTime);
         charController.Move(Velocity * Time.deltaTime);
@@ -173,12 +193,12 @@ public class Player1Controller : MonoBehaviour
 
 
         // basic attack
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             StartCoroutine(BasicPunch());
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             StartCoroutine(CrossPunch());
         }
@@ -186,7 +206,7 @@ public class Player1Controller : MonoBehaviour
         
 
         
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(SpecialAttack());
         }
@@ -261,7 +281,7 @@ public class Player1Controller : MonoBehaviour
 
     public IEnumerator SpecialAttack()
     {
-        if (player1Attack >= 100f)
+        if (player1Attack >= 100f || isAttacking == false)
         {
             
             isAttacking = true;

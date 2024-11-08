@@ -36,6 +36,7 @@ public class Player2Controller : MonoBehaviour
     public AudioClip jabWhoosh;
     public AudioClip crossWhoosh;
     public AudioSource footStepSource;
+    private float jumpTimer;
 
     private void Start()
     {
@@ -147,8 +148,29 @@ public class Player2Controller : MonoBehaviour
                 Velocity.y -= 19.62f * Time.deltaTime;
                 
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                anim.SetBool("isJumpAttacking", true);
+                jumpTimer = 1.5f;
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                anim.SetBool("isJumpAttacking", true);
+                jumpTimer = 1.5f;
+            }
+
         }
+
+        if (jumpTimer > 0)
+        {
+            jumpTimer -= Time.deltaTime;
+        }
+        if (jumpTimer <= 0)
+        {
+            anim.SetBool("isJumpAttacking", false);
+        }
+
         // move and jump with given input
         //charController.Move(movement.normalized * moveSpeed * Time.deltaTime);
         charController.Move(Velocity * Time.deltaTime);
@@ -158,17 +180,17 @@ public class Player2Controller : MonoBehaviour
         
         Vector3 attackCenter = attackObject.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(BasicPunch());
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha9))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             StartCoroutine(CrossPunch());
         }
 
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
             StartCoroutine(SpecialAttack());
         }
@@ -240,7 +262,7 @@ public class Player2Controller : MonoBehaviour
 
     public IEnumerator SpecialAttack()
     {
-        if (player2Attack >= 100f)
+        if (player2Attack >= 100f || isAttacking == false)
         {
 
             isAttacking = true;

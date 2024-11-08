@@ -106,7 +106,7 @@ public class DamageCheckP2 : MonoBehaviour
 
         while (elapsedTime < shakeDuration)
         {
-            elapsedTime += (3f * Time.unscaledDeltaTime);
+            elapsedTime += (1.5f * Time.unscaledDeltaTime);
             Time.timeScale = Mathf.Lerp(startScale, endScale, elapsedTime / shakeDuration);
             Debug.Log(Time.timeScale);
             yield return null;
@@ -135,6 +135,7 @@ public class DamageCheckP2 : MonoBehaviour
                 {
                     
                     TriggerShake();
+                    play1Animator.SetBool("isDead", true );
                     StartCoroutine(DecreaseTimeScale());
                     StartCoroutine(WaitCoupleSeconds());
                 }
@@ -153,6 +154,7 @@ public class DamageCheckP2 : MonoBehaviour
                 {
                     
                     TriggerShake();
+                    play1Animator.SetBool("isDead", true);
                     StartCoroutine(DecreaseTimeScale());
                     StartCoroutine(WaitCoupleSeconds());
                 }
