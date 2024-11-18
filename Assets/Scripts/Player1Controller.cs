@@ -40,10 +40,13 @@ public class Player1Controller : MonoBehaviour
     public AudioClip crossWhoosh;
     public AudioSource footStepSource;
     private float jumpTimer;
-
+    private Material[] furMaterial;
+    private SkinnedMeshRenderer skinnedMeshRenderer;
     //private Rigidbody boulderRB;
     //private Vector3 boulderVector = new Vector3();
 
+    private float footstepCooldown = 0.833f; // Cooldown between footstep sounds
+    private float footstepTimer = 0f;
 
     private void Start()
     {
@@ -55,6 +58,15 @@ public class Player1Controller : MonoBehaviour
         rb = this.GetComponent<Rigidbody>();
         //Debug.Log(hitboxMesh.gameObject.name);
         anim.SetBool("isGrounded", true);
+        skinnedMeshRenderer = this.gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+        furMaterial = skinnedMeshRenderer.materials;
+        foreach (Material mat in furMaterial)
+        {
+
+            // Adjust the material color
+            mat.color = new Color(Mathf.Clamp01(mat.color.r + 0.5f), mat.color.g, Mathf.Clamp01(mat.color.b - 0.5f), mat.color.a);
+
+        }
     }
 
     void Update()
@@ -62,6 +74,7 @@ public class Player1Controller : MonoBehaviour
 
         Vector3 scale = transform.localScale;
 
+        footstepTimer -= Time.deltaTime;
 
         if (otherChar.transform.position.x > transform.position.x)
         {
@@ -86,11 +99,12 @@ public class Player1Controller : MonoBehaviour
         {
             charController.Move(-movement * Time.deltaTime);
             
-            if (isPunching == false && isAttacking == false)
+            if (isPunching == false && isAttacking == false && footstepTimer <= 0f)
             {
                 anim.SetBool("isIdling", false);
                 anim.SetBool("isWalking", true);
                 footStepSource.Play();
+                footstepTimer = footstepCooldown;
             }
             
         }
@@ -110,11 +124,12 @@ public class Player1Controller : MonoBehaviour
         {
             charController.Move(movement * Time.deltaTime);
 
-            if (isPunching == false && isAttacking == false)
+            if (isPunching == false && isAttacking == false && footstepTimer <= 0f)
             {
                 anim.SetBool("isIdling", false);
                 anim.SetBool("isWalking", true);
                 footStepSource.Play();
+                footstepTimer = footstepCooldown;
             }
                 
         }
@@ -193,13 +208,15 @@ public class Player1Controller : MonoBehaviour
 
 
         // basic attack
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && isPunching == false)
         {
+            isPunching = true;
             StartCoroutine(BasicPunch());
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && isPunching == false)
         {
+            isPunching = true;
             StartCoroutine(CrossPunch());
         }
         
@@ -208,7 +225,12 @@ public class Player1Controller : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.R))
         {
-            StartCoroutine(SpecialAttack());
+            if (player1Attack >= 100f && isAttacking == false)
+            {
+                isAttacking = true;
+                StartCoroutine(SpecialAttack());
+            }
+                
         }
 
         // block
@@ -232,9 +254,8 @@ public class Player1Controller : MonoBehaviour
 
     public IEnumerator BasicPunch()
     {
-        if (isPunching == false)
-        {
-            isPunching = true;
+        
+            
             //Vector3 attackRadius = new Vector3(0.4f, 0.4f);
             //Vector3 attackCenter = attackObject.transform.position;
 
@@ -244,21 +265,19 @@ public class Player1Controller : MonoBehaviour
             anim.SetBool("isWalking", false);
             audioSource.PlayOneShot(jabWhoosh, 1f);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.6f);
             anim.SetBool("isPunching", false);
             isPunching = false;
             //flip flag of damage check script
             dmgP1[0].hasHit = false;
             dmgP1[1].hasHit = false;
             anim.SetBool("isIdling", true);
-        }
+        
     }
 
     public IEnumerator CrossPunch()
     {
-        if (isPunching == false)
-        {
-            isPunching = true;
+        
             //Vector3 attackRadius = new Vector3(0.4f, 0.4f);
             //Vector3 attackCenter = attackObject.transform.position;
 
@@ -276,15 +295,15 @@ public class Player1Controller : MonoBehaviour
             dmgP1[0].hasHit = false;
             dmgP1[1].hasHit = false;
             anim.SetBool("isIdling", true);
-        }
+        
     }
 
     public IEnumerator SpecialAttack()
     {
-        if (player1Attack >= 100f || isAttacking == false)
-        {
+        
             
             isAttacking = true;
+            player1Attack = 0;
             // do special attack
             anim.SetBool("isPunching", false);
             anim.SetBool("isIdling", false);
@@ -298,12 +317,28 @@ public class Player1Controller : MonoBehaviour
             audioSource.PlayOneShot(boulderWhoosh);
             // check bouldercollision for rest of code
             Debug.Log("Special ATTACK");
-            player1Attack = 0;
+            
             
             anim.SetBool("isAttacking", false);
             isAttacking = false;
             anim.SetBool("isIdling", true);
-        }
         
+        
+    }
+
+    public GameObject[] offensiveParts;
+
+    public void CastHit(float radius, int partIndex)
+    {
+        if (partIndex < 0 || partIndex > offensiveParts.Length)
+            return;
+
+        GameObject at = offensiveParts[partIndex];
+        Collider[] colliders = Physics.OverlapSphere(at.transform.position, radius);
+
+        foreach (var c in colliders)
+        {
+            Debug.Log(c.gameObject.name);
+        }
     }
 }

@@ -10,10 +10,11 @@ public class Pause : MonoBehaviour
     private AudioSource buttonPressing;
     public AudioClip posSound;
     public AudioClip negSound;
-
+    private NewSceneLoader loader;
     private void Start()
     {
         buttonPressing = GameObject.FindGameObjectWithTag("Button").GetComponent<AudioSource>();
+        loader = GameObject.FindAnyObjectByType<NewSceneLoader>().GetComponent<NewSceneLoader>();
     }
     //public Canvas mainCanv;
     void Update()
@@ -52,22 +53,24 @@ public class Pause : MonoBehaviour
     {
         buttonPressing.PlayOneShot(posSound);
         Time.timeScale = 1;
-        SceneManager.LoadScene(FindAnyObjectByType<EnvironmentHolding>().environmentName);
+        loader.TransitionToScene(FindAnyObjectByType<EnvironmentHolding>().environmentName);
     }
 
     public void ReturnCharacterSelect()
     {
         buttonPressing.PlayOneShot(posSound);
-        Time.timeScale = 1;
+        
         Destroy(GameObject.Find("CharacterHolder"));
-        SceneManager.LoadScene("CharacterSelectScreen");
+        loader.TransitionToScene("CharacterSelectScreen");
+        Time.timeScale = 1;
     }
 
     public void ReturnToMainMenu()
     {
         buttonPressing.PlayOneShot(negSound);
+        
+        loader.TransitionToScene("RevampedMain");
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
     }
 
 

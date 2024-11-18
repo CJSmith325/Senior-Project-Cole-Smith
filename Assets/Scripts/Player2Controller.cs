@@ -37,6 +37,11 @@ public class Player2Controller : MonoBehaviour
     public AudioClip crossWhoosh;
     public AudioSource footStepSource;
     private float jumpTimer;
+    private Material[] furMaterial;
+    private SkinnedMeshRenderer skinnedMeshRenderer;
+
+    private float footstepCooldown = 0.833f; // Cooldown between footstep sounds
+    private float footstepTimer = 0f;
 
     private void Start()
     {
@@ -44,12 +49,24 @@ public class Player2Controller : MonoBehaviour
         
         otherChar = FindAnyObjectByType<Player1Controller>();
         anim.SetBool("isGrounded", true);
+        skinnedMeshRenderer = this.gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+        furMaterial = skinnedMeshRenderer.materials;
+        Debug.Log(furMaterial.ToString());
+        foreach (Material mat in furMaterial)
+        {
+
+            // Adjust the material color
+            mat.color = new Color(Mathf.Clamp01(mat.color.r - 0.3f), mat.color.g, Mathf.Clamp01(mat.color.b + 0.3f), mat.color.a);
+
+        }
     }
 
     void Update()
     {
 
         Vector3 scale = transform.localScale;
+
+        footstepTimer -= Time.deltaTime;
 
         if (otherChar.transform.position.x > transform.position.x)
         {
@@ -76,11 +93,12 @@ public class Player2Controller : MonoBehaviour
         if (Input.GetKey(KeyCode.L) && this.transform.position.x <= otherChar.transform.position.x + 18.4f)
         {
             charController.Move(movement * Time.deltaTime);
-            if (isPunching == false && isAttacking == false)
+            if (isPunching == false && isAttacking == false && footstepTimer <= 0f)
             {
                 anim.SetBool("isIdling", false);
                 anim.SetBool("isWalking", true);
                 footStepSource.Play();
+                footstepTimer = footstepCooldown;
             }
         }
 
@@ -98,11 +116,12 @@ public class Player2Controller : MonoBehaviour
         {
            charController.Move(-movement * Time.deltaTime);
 
-           if (isPunching == false && isAttacking == false)
+           if (isPunching == false && isAttacking == false && footstepTimer <= 0f)
            {
                 anim.SetBool("isIdling", false);
                 anim.SetBool("isWalking", true);
                 footStepSource.Play();
+                footstepTimer = footstepCooldown;
             }
         }
 
@@ -180,19 +199,25 @@ public class Player2Controller : MonoBehaviour
         
         Vector3 attackCenter = attackObject.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.U) && isPunching == false)
         {
+            isPunching = true;
             StartCoroutine(BasicPunch());
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && isPunching == false)
         {
+            isPunching = true;
             StartCoroutine(CrossPunch());
         }
 
         if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
-            StartCoroutine(SpecialAttack());
+            if (player2Attack >= 100f && isAttacking == false)
+            {
+                isAttacking = true;
+                StartCoroutine(SpecialAttack());
+            }
         }
 
 
@@ -214,9 +239,7 @@ public class Player2Controller : MonoBehaviour
 
     public IEnumerator BasicPunch()
     {
-        if (isPunching == false)
-        {
-            isPunching = true;
+        
             //Vector3 attackRadius = new Vector3(0.4f, 0.4f);
             //Vector3 attackCenter = attackObject.transform.position;
 
@@ -225,21 +248,19 @@ public class Player2Controller : MonoBehaviour
             anim.SetBool("isIdling", false);
             anim.SetBool("isWalking", false);
             audioSource.PlayOneShot(jabWhoosh, 1f);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.6f);
             anim.SetBool("isPunching", false);
             isPunching = false;
             //flip flag of damage check script
             dmgP2[0].hasHit = false;
             dmgP2[1].hasHit = false;
             anim.SetBool("isIdling", true);
-        }
+        
     }
 
     public IEnumerator CrossPunch()
     {
-        if (isPunching == false)
-        {
-            isPunching = true;
+        
             //Vector3 attackRadius = new Vector3(0.4f, 0.4f);
             //Vector3 attackCenter = attackObject.transform.position;
 
@@ -250,22 +271,20 @@ public class Player2Controller : MonoBehaviour
             audioSource.PlayOneShot(crossWhoosh, 1f);
 
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.6f);
             anim.SetBool("isCrossPunching", false);
             isPunching = false;
             //flip flag of damage check script
             dmgP2[0].hasHit = false;
             dmgP2[1].hasHit = false;
             anim.SetBool("isIdling", true);
-        }
+        
     }
 
     public IEnumerator SpecialAttack()
     {
-        if (player2Attack >= 100f || isAttacking == false)
-        {
-
-            isAttacking = true;
+        
+            player2Attack = 0;
             // do special attack
             anim.SetBool("isPunching", false);
             anim.SetBool("isIdling", false);
@@ -279,12 +298,12 @@ public class Player2Controller : MonoBehaviour
             audioSource.PlayOneShot(boulderWhoosh);
             // check bouldercollision for rest of code
             Debug.Log("Special ATTACK");
-            player2Attack = 0;
+            
 
             anim.SetBool("isAttacking", false);
             isAttacking = false;
             anim.SetBool("isIdling", true);
-        }
+        
 
     }
 }

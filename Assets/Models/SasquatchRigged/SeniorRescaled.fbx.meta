@@ -3,7 +3,22 @@ guid: 9b92db5ca171c374dafa2301b1282521
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sasquatch_Classic_Eyes_mat_EBG_Character_Uber
+    second: {fileID: 2100000, guid: 24b943bcb366bc74b908eba6ab2306b1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sasquatch_Classic_Fur_mat_EBG_Character_Uber
+    second: {fileID: 2100000, guid: 433c731327b25414a8b655e8d30d81cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sasquatch_Classic_Teeth_mat_EBG_Character_Uber
+    second: {fileID: 2100000, guid: 7261ae59f60e7ea438179695dc5172dc, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -208,7 +223,7 @@ ModelImporter:
       name: Armature|Jump
       takeName: Armature|Jump
       internalID: 1079665108409675491
-      firstFrame: 0
+      firstFrame: 10.3
       lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0

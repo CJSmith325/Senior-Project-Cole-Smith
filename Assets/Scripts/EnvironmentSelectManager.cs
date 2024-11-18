@@ -9,11 +9,12 @@ public class EnvironmentSelectManager : MonoBehaviour
     public EnvironmentHolding environmentHolder;
     private AudioSource buttonSource;
     public AudioClip positiveSound;
+    private NewSceneLoader loader;
 
     private void Start()
     {
         buttonSource = GameObject.FindGameObjectWithTag("Button").GetComponent<AudioSource>();
-
+        loader = GameObject.FindAnyObjectByType<NewSceneLoader>().GetComponent<NewSceneLoader>();
     }
 
     public void AssignJungle()
@@ -24,7 +25,7 @@ public class EnvironmentSelectManager : MonoBehaviour
             Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
         }
         buttonSource.PlayOneShot(positiveSound);
-        SceneManager.LoadScene("CharacterSelectScreen");
+        loader.TransitionToScene("CharacterSelectScreen");
     }
     
     public void AssignUrban()
@@ -35,7 +36,7 @@ public class EnvironmentSelectManager : MonoBehaviour
             Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
         }
         buttonSource.PlayOneShot(positiveSound);
-        SceneManager.LoadScene("CharacterSelectScreen");
+        loader.TransitionToScene("CharacterSelectScreen");
     }
 
     public void AssignDesert()
@@ -46,6 +47,6 @@ public class EnvironmentSelectManager : MonoBehaviour
             Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
         }
         buttonSource.PlayOneShot(positiveSound);
-        SceneManager.LoadScene("CharacterSelectScreen");
+        loader.TransitionToScene("CharacterSelectScreen");
     }
 }

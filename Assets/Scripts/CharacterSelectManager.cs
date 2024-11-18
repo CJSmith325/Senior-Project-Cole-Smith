@@ -20,6 +20,7 @@ public class CharacterSelectManager : MonoBehaviour
     public GameObject mannequinHold;
     public AudioClip positiveSound;
     private AudioSource buttonSource;
+    private NewSceneLoader loader;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class CharacterSelectManager : MonoBehaviour
         environmentHolder = GameObject.FindAnyObjectByType<EnvironmentHolding>();
         buttonSource = GameObject.FindGameObjectWithTag("Button").GetComponent<AudioSource>();
         selectCount = 0;
+        loader = GameObject.FindAnyObjectByType<NewSceneLoader>().GetComponent<NewSceneLoader>();
     }
 
     // Update is called once per frame
@@ -35,7 +37,7 @@ public class CharacterSelectManager : MonoBehaviour
         if (selectCount == 2)
         {
             Destroy(GameObject.FindGameObjectWithTag("Music"));
-            SceneManager.LoadScene(environmentHolder.environmentName);
+            loader.TransitionToScene(environmentHolder.environmentName);
         }
     }
 

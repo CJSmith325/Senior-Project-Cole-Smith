@@ -34,12 +34,16 @@ public class DamageCheckP1 : MonoBehaviour
 
     public float growthRate = 0.1f;
     public float shakeDuration = 3f;
-    public float shakeAmplitude = 1f;  // Intensity of the shake
-    public float shakeFrequency = 1f;  // Speed of the shake
+    public float shakeAmplitude = 0.7f;  // Intensity of the shake
+    public float shakeFrequency = 0.7f;  // Speed of the shake
+
+    private NewSceneLoader loader;
 
 
     private void Start()
     {
+        loader = GameObject.FindAnyObjectByType<NewSceneLoader>().GetComponent<NewSceneLoader>();
+        Debug.Log(loader);
         CinemachineVirtualCamera virtualCamera = FindAnyObjectByType<CinemachineVirtualCamera>().GetComponent<CinemachineVirtualCamera>();
         Debug.Log(virtualCamera);
         cinemachinePerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -73,8 +77,8 @@ public class DamageCheckP1 : MonoBehaviour
         {
             shakeTimer -= Time.deltaTime;
             shakeDur += Time.deltaTime;
-            cinemachinePerlin.m_AmplitudeGain += Time.deltaTime;
-            cinemachinePerlin.m_FrequencyGain += Time.deltaTime;
+            cinemachinePerlin.m_AmplitudeGain += Time.deltaTime * 0.5f;
+            cinemachinePerlin.m_FrequencyGain += Time.deltaTime * 0.5f;
             
 
             if (shakeTimer <= 0f)
@@ -93,12 +97,12 @@ public class DamageCheckP1 : MonoBehaviour
         //cinemachinePerlin.m_FrequencyGain = shakeFrequency;
     }
 
-    private IEnumerator WaitCoupleSeconds()
+    private void WaitCoupleSeconds()
     {
-        yield return new WaitForSecondsRealtime(3f);
+        
         
         GameControl.victoryText = "Player 1 Wins!";
-        SceneManager.LoadScene("GameOverScreen");
+        loader.TransitionToScene("GameOverScreen");
     }
 
     IEnumerator DecreaseTimeScale()
@@ -110,7 +114,11 @@ public class DamageCheckP1 : MonoBehaviour
         while (elapsedTime < shakeDuration)
         {
             elapsedTime += (1.5f*Time.unscaledDeltaTime);
-            Time.timeScale = Mathf.Lerp(startScale, endScale, elapsedTime / shakeDuration);
+            if (Time.timeScale >= 0.2f)
+            {
+                Time.timeScale = Mathf.Lerp(startScale, endScale, elapsedTime / shakeDuration);
+            }
+            //Time.timeScale = Mathf.Lerp(startScale, endScale, elapsedTime / shakeDuration);
             Debug.Log(Time.timeScale);
             yield return null;
         }
@@ -142,7 +150,7 @@ public class DamageCheckP1 : MonoBehaviour
                     TriggerShake();
                     play2Animator.SetBool("isDead", true);
                     StartCoroutine(DecreaseTimeScale());
-                    StartCoroutine(WaitCoupleSeconds());
+                    WaitCoupleSeconds();
 
                    
                 }
@@ -165,7 +173,7 @@ public class DamageCheckP1 : MonoBehaviour
                     TriggerShake();
                     play2Animator.SetBool("isDead", true);
                     StartCoroutine(DecreaseTimeScale());
-                    StartCoroutine(WaitCoupleSeconds());
+                    WaitCoupleSeconds();
 
                     
                 }
