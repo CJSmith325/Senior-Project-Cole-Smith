@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
+using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class DamageCheckP2 : MonoBehaviour
 {
@@ -20,6 +22,8 @@ public class DamageCheckP2 : MonoBehaviour
     public AudioSource audioSource;
 
     public Animator play1Animator;
+
+
     private bool animBool;
 
     private float targetTime = 0.28f;
@@ -34,6 +38,11 @@ public class DamageCheckP2 : MonoBehaviour
     public float shakeAmplitude = 0.5f;  // Intensity of the shake
     public float shakeFrequency = 0.5f;  // Speed of the shake
 
+    public RectTransform uiElement;  // The UI element to shake
+    public float shakeAmount = 10f;  // How much the UI element will shake
+    public float healthshakeDuration = 0.5f;  // How long the shake lasts
+    private Vector3 UIPosition;
+
     private NewSceneLoader loader;
 
     private void Start()
@@ -44,6 +53,7 @@ public class DamageCheckP2 : MonoBehaviour
         Debug.Log(virtualCamera);
         cinemachinePerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         Debug.Log(cinemachinePerlin);
+        UIPosition = uiElement.transform.localPosition;
     }
 
     private void Update()
@@ -69,6 +79,8 @@ public class DamageCheckP2 : MonoBehaviour
                 targetTime = 0.28f;
             }
         }
+
+
         if (shakeTimer > 0)
         {
             shakeTimer -= Time.deltaTime;
@@ -123,6 +135,24 @@ public class DamageCheckP2 : MonoBehaviour
         //Time.timeScale = endScale; // Ensure the final value is exactly 0
     }
 
+    private IEnumerator HealthShakeCoroutine()
+    {
+        float elapsed = 0f;
+
+        while (elapsed < healthshakeDuration)
+        {
+            float x = Random.Range(-shakeAmount, shakeAmount);
+            float y = Random.Range(-shakeAmount, shakeAmount);
+
+            uiElement.localPosition = UIPosition + new Vector3(x, y, 0);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        uiElement.localPosition = UIPosition;  // Reset position after shaking
+    }
+
     private void OnTriggerStay(Collider other)
     {
         Debug.Log("Collision detected");
@@ -130,7 +160,7 @@ public class DamageCheckP2 : MonoBehaviour
         {
 
             //game control
-            if (player1.isBlocking == false)
+            if (player1.isBlocking == false && hasHit == false)
             {
                 audioSource.PlayOneShot(punchClip, 0.2f);
                 player1.player1Health -= 10;
@@ -149,7 +179,7 @@ public class DamageCheckP2 : MonoBehaviour
                 }
                 player2.isPunching = false;
             }
-            if (player1.isBlocking == true)
+            if (player1.isBlocking == true && hasHit == false)
             {
                 audioSource.PlayOneShot(blockedpunchClip, 0.2f);
                 player1.player1Health -= 0.5f;

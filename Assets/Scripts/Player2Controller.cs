@@ -306,4 +306,23 @@ public class Player2Controller : MonoBehaviour
         
 
     }
+
+    public void ResetHit()
+    {
+        foreach (var dmg in dmgP2)
+        {
+            dmg.hasHit = true; // Reset hit flags when the animation resets
+        }
+    }
+
+    public void CastHit()
+    {
+        foreach (var dmg in dmgP2)
+        {
+            if (!dmg.hasHit) // Ensure hit is cast only if it hasn't been cast already
+            {
+                dmg.hasHit = false;
+            }
+        }
+    }
 }

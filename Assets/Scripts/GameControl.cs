@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
@@ -14,14 +15,17 @@ public class GameControl : MonoBehaviour
     private CharacterHolding charHolder;
     public GameObject player1;
     public GameObject player2;
+    private Color color1;
+    private Color color2;
 
     private void Start()
     {
-        timeLeft = 300;
+        timeLeft = 45;
         charHolder = FindAnyObjectByType<CharacterHolding>();
         playerOne.text = charHolder.characterOne;
         playerTwo.text = charHolder.characterTwo;
-        
+        color1 = Color.white;
+        color2 = Color.red;
     }
     private void Update()
     {
@@ -32,5 +36,16 @@ public class GameControl : MonoBehaviour
         {
             SceneManager.LoadScene("GameOverScreen");
         }
+
+        if (timeLeft <= 30)
+        {
+            FlashingText();
+        }
+
+    }
+
+    public void FlashingText()
+    {
+        timerText.color = Color.Lerp(color1, color2, Mathf.PingPong(Time.time, 1f));
     }
 }

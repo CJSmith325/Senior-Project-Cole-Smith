@@ -2,9 +2,12 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 using Unity.Mathematics;
+using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class DamageCheckP1 : MonoBehaviour
 {
@@ -22,6 +25,8 @@ public class DamageCheckP1 : MonoBehaviour
     public AudioSource audioSource;
 
     public Animator play2Animator;
+
+
     private bool animBool;
 
     private float targetTime = 0.28f;
@@ -37,6 +42,11 @@ public class DamageCheckP1 : MonoBehaviour
     public float shakeAmplitude = 0.7f;  // Intensity of the shake
     public float shakeFrequency = 0.7f;  // Speed of the shake
 
+    public RectTransform uiElement;  // The UI element to shake
+    public float shakeAmount = 10f;  // How much the UI element will shake
+    public float healthshakeDuration = 0.5f;  // How long the shake lasts
+    private Vector3 UIPosition;
+
     private NewSceneLoader loader;
 
 
@@ -48,6 +58,7 @@ public class DamageCheckP1 : MonoBehaviour
         Debug.Log(virtualCamera);
         cinemachinePerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         Debug.Log(cinemachinePerlin);
+        UIPosition = uiElement.transform.localPosition;
     }
 
     private void Update()
@@ -62,6 +73,7 @@ public class DamageCheckP1 : MonoBehaviour
             punchTime = 0.9f;
         }
 
+
         if (animBool == true)
         {
             targetTime -= Time.deltaTime;
@@ -73,6 +85,8 @@ public class DamageCheckP1 : MonoBehaviour
                 targetTime = 0.28f;
             }
         }
+
+
         if (shakeTimer > 0)
         {
             shakeTimer -= Time.deltaTime;
@@ -126,67 +140,76 @@ public class DamageCheckP1 : MonoBehaviour
         Time.timeScale = endScale; // Ensure the final value is exactly 0
     }
 
+    private IEnumerator HealthShakeCoroutine()
+    {
+        float elapsed = 0f;
+
+        while (elapsed < healthshakeDuration)
+        {
+            float x = Random.Range(-shakeAmount, shakeAmount);
+            float y = Random.Range(-shakeAmount, shakeAmount);
+
+            uiElement.localPosition = UIPosition + new Vector3(x, y, 0);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        uiElement.localPosition = UIPosition;  // Reset position after shaking
+    }
+
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("Collision detected");
-        if (player1.isPunching == true && other.gameObject.tag == "Player2" && hasHit == false && punchTime <= 0)
+        // Detect collision only if not already hit and the punch time has passed
+        if (player1.isPunching == true && other.gameObject.tag == "Player2" && !hasHit && punchTime <= 0)
         {
-
-            //game control
             if (player2.isBlocking == false)
             {
+                StartCoroutine(HealthShakeCoroutine());
                 audioSource.PlayOneShot(punchClip, 0.2f);
                 player2.player2Health -= 10;
                 play2Animator.SetBool("isHit", true);
                 animBool = true;
                 p2Particles.Play();
-                hasHit = true;
+                hasHit = true; // Prevent multiple hits during the same animation
                 Debug.Log(player2.player2Health);
+
                 if (player2.player2Health <= 0)
                 {
-                    //Destroy(player2.gameObject);
-
-                    
                     TriggerShake();
                     play2Animator.SetBool("isDead", true);
                     StartCoroutine(DecreaseTimeScale());
                     WaitCoupleSeconds();
-
-                   
                 }
-                player1.isPunching = false;
+                //play2Animator.SetBool("isHit", false);
+                player1.isPunching = false; // Reset punch flag
             }
-            if (player2.isBlocking == true)
+            else if (player2.isBlocking == true)
             {
+                StartCoroutine(HealthShakeCoroutine());
                 audioSource.PlayOneShot(blockedpunchClip, 0.2f);
                 player2.player2Health -= 0.5f;
                 play2Animator.SetBool("isHit", true);
                 animBool = true;
                 p2Particles.Play();
-                hasHit = true;
+                hasHit = true; // Prevent multiple hits during the same animation
                 Debug.Log(player2.player2Health);
+
                 if (player2.player2Health <= 0)
                 {
-
-                    //Destroy(player2.gameObject);
-                    
                     TriggerShake();
                     play2Animator.SetBool("isDead", true);
                     StartCoroutine(DecreaseTimeScale());
                     WaitCoupleSeconds();
-
-                    
                 }
-
-                player1.isPunching = false;
+                //play2Animator.SetBool("isHit", false);
+                player1.isPunching = false; // Reset punch flag
             }
-            //player1.isPunching = false;
-            return;
         }
     }
-    
 
-    
+
+
 
     //private void OnTriggerExit(Collider other)
     //{

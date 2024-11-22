@@ -11,8 +11,11 @@ public class Pause : MonoBehaviour
     public AudioClip posSound;
     public AudioClip negSound;
     private NewSceneLoader loader;
+    private CanvasGroup fadeCanvasGroup;            // Canvas group for fade effect
+    public float fadeDuration = 1.0f;
     private void Start()
     {
+        fadeCanvasGroup = this.gameObject.GetComponentInChildren<CanvasGroup>();
         buttonPressing = GameObject.FindGameObjectWithTag("Button").GetComponent<AudioSource>();
         loader = GameObject.FindAnyObjectByType<NewSceneLoader>().GetComponent<NewSceneLoader>();
     }
@@ -35,12 +38,14 @@ public class Pause : MonoBehaviour
             PauseCanvas.gameObject.SetActive(true);
             //mainCanv.gameObject.SetActive(false);
             buttonPressing.PlayOneShot(negSound);
+            
             Time.timeScale = 0;
 
         }
         else
         {
             buttonPressing.PlayOneShot(posSound);
+            
             Time.timeScale = 1;
             PauseCanvas.gameObject.SetActive(false);
             //mainCanv.gameObject.SetActive(true);
@@ -79,4 +84,6 @@ public class Pause : MonoBehaviour
         buttonPressing.PlayOneShot(negSound);
         Application.Quit();
     }
+
+    
 }

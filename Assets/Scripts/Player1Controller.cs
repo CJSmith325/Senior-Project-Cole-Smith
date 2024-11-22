@@ -328,17 +328,23 @@ public class Player1Controller : MonoBehaviour
 
     public GameObject[] offensiveParts;
 
-    public void CastHit(float radius, int partIndex)
+    public void ResetHit()
     {
-        if (partIndex < 0 || partIndex > offensiveParts.Length)
-            return;
-
-        GameObject at = offensiveParts[partIndex];
-        Collider[] colliders = Physics.OverlapSphere(at.transform.position, radius);
-
-        foreach (var c in colliders)
+        foreach (var dmg in dmgP1)
         {
-            Debug.Log(c.gameObject.name);
+            dmg.hasHit = true; // Reset hit flags when the animation resets
         }
     }
+
+    public void CastHit()
+    {
+        foreach (var dmg in dmgP1)
+        {
+            if (!dmg.hasHit) // Ensure hit is cast only if it hasn't been cast already
+            {
+                dmg.hasHit = false;
+            }
+        }
+    }
+
 }
