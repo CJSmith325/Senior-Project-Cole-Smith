@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using Unity.Mathematics;
-using UnityEditor.AnimatedValues;
+//using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -42,6 +42,12 @@ public class DamageCheckP1 : MonoBehaviour
     public float shakeAmplitude = 0.7f;  // Intensity of the shake
     public float shakeFrequency = 0.7f;  // Speed of the shake
 
+    private float shakeAmp = 0.5f;  // Intensity of the shake
+    private float shakeFreq = 0.5f;  // Speed of the shake
+    private float hitShakeDur = 0.08f;
+    private float hitShakeTimer;
+
+
     public RectTransform uiElement;  // The UI element to shake
     public float shakeAmount = 10f;  // How much the UI element will shake
     public float healthshakeDuration = 0.5f;  // How long the shake lasts
@@ -58,19 +64,34 @@ public class DamageCheckP1 : MonoBehaviour
         Debug.Log(virtualCamera);
         cinemachinePerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         Debug.Log(cinemachinePerlin);
+        
         UIPosition = uiElement.transform.localPosition;
     }
 
     private void Update()
     {
-        if (player1.isPunching == true)
+        //if (player1.isPunching == true)
+        //{
+        //    punchTime -= Time.deltaTime;
+
+        //}
+        //if (player1.isPunching == false && punchTime == 0)
+        //{
+        //    punchTime = 0.9f;
+        //}
+
+
+        if (player1.isPunching)
         {
             punchTime -= Time.deltaTime;
-            
+            if (punchTime <= 0)
+            {
+                punchTime = 0; // Prevent it from going negative
+            }
         }
-        if (player1.isPunching == false && punchTime == 0)
+        else
         {
-            punchTime = 0.9f;
+            punchTime = 0.3f; // Reset when punching ends
         }
 
 
@@ -86,7 +107,7 @@ public class DamageCheckP1 : MonoBehaviour
             }
         }
 
-
+        //game over shake
         if (shakeTimer > 0)
         {
             shakeTimer -= Time.deltaTime;
@@ -102,6 +123,18 @@ public class DamageCheckP1 : MonoBehaviour
                 cinemachinePerlin.m_FrequencyGain = 0f;
             }
         }
+
+        // hit shake
+
+        if (hitShakeTimer > 0)
+        {
+            hitShakeTimer -= Time.deltaTime;
+            if (hitShakeTimer <= 0)
+            {
+                cinemachinePerlin.m_AmplitudeGain = 0f;
+                cinemachinePerlin.m_FrequencyGain = 0f;
+            }
+        }
     }
 
     public void TriggerShake()
@@ -109,6 +142,13 @@ public class DamageCheckP1 : MonoBehaviour
         shakeTimer = shakeDuration;
         //cinemachinePerlin.m_AmplitudeGain = shakeAmplitude;
         //cinemachinePerlin.m_FrequencyGain = shakeFrequency;
+    }
+
+    public void TriggerHitShake()
+    {
+        cinemachinePerlin.m_AmplitudeGain = shakeAmp;
+        cinemachinePerlin.m_FrequencyGain = shakeFreq;
+        hitShakeTimer = hitShakeDur;
     }
 
     private void WaitCoupleSeconds()
@@ -143,7 +183,7 @@ public class DamageCheckP1 : MonoBehaviour
     private IEnumerator HealthShakeCoroutine()
     {
         float elapsed = 0f;
-
+        TriggerHitShake();
         while (elapsed < healthshakeDuration)
         {
             float x = Random.Range(-shakeAmount, shakeAmount);
@@ -161,7 +201,7 @@ public class DamageCheckP1 : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         // Detect collision only if not already hit and the punch time has passed
-        if (player1.isPunching == true && other.gameObject.tag == "Player2" && !hasHit && punchTime <= 0)
+        if (player1.isPunching == true && other.CompareTag("Player2") && !hasHit && punchTime <= 0.0f)
         {
             if (player2.isBlocking == false)
             {

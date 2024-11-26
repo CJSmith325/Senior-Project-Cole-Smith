@@ -319,10 +319,9 @@ public class Player2Controller : MonoBehaviour
     {
         foreach (var dmg in dmgP2)
         {
-            if (!dmg.hasHit) // Ensure hit is cast only if it hasn't been cast already
-            {
+            
                 dmg.hasHit = false;
-            }
+            
         }
     }
 }

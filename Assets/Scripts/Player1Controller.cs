@@ -333,6 +333,7 @@ public class Player1Controller : MonoBehaviour
         foreach (var dmg in dmgP1)
         {
             dmg.hasHit = true; // Reset hit flags when the animation resets
+            Debug.Log("I Reset!");
         }
     }
 
@@ -340,10 +341,10 @@ public class Player1Controller : MonoBehaviour
     {
         foreach (var dmg in dmgP1)
         {
-            if (!dmg.hasHit) // Ensure hit is cast only if it hasn't been cast already
-            {
+            
                 dmg.hasHit = false;
-            }
+                Debug.Log("I Casted!");
+            
         }
     }
 

@@ -55,15 +55,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.2825279
-        functionName: CastHit
+      - time: 0
+        functionName: ResetHit
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0
-        functionName: ResetHit
+      - time: 0.21410684
+        functionName: CastHit
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -98,19 +98,19 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.29631186
-        functionName: CastHit
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.0025
-        intParameter: 1
-        messageOptions: 0
       - time: 0
         functionName: ResetHit
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
+        messageOptions: 0
+      - time: 0.25157502
+        functionName: CastHit
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0.0025
+        intParameter: 1
         messageOptions: 0
       transformMask: []
       maskType: 3

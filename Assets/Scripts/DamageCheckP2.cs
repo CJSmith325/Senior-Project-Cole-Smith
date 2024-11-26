@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
-using UnityEditor.AnimatedValues;
+//using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -38,6 +38,12 @@ public class DamageCheckP2 : MonoBehaviour
     public float shakeAmplitude = 0.5f;  // Intensity of the shake
     public float shakeFrequency = 0.5f;  // Speed of the shake
 
+    private float shakeAmp = 0.5f;  // Intensity of the shake
+    private float shakeFreq = 0.5f;  // Speed of the shake
+    private float hitShakeDur = 0.08f;
+    private float hitShakeTimer;
+
+
     public RectTransform uiElement;  // The UI element to shake
     public float shakeAmount = 10f;  // How much the UI element will shake
     public float healthshakeDuration = 0.5f;  // How long the shake lasts
@@ -58,14 +64,17 @@ public class DamageCheckP2 : MonoBehaviour
 
     private void Update()
     {
-        if (player2.isPunching == true)
+        if (player2.isPunching)
         {
             punchTime -= Time.deltaTime;
-
+            if (punchTime <= 0)
+            {
+                punchTime = 0; // Prevent it from going negative
+            }
         }
-        if (player2.isPunching == false && punchTime == 0)
+        else
         {
-            punchTime = 0.9f;
+            punchTime = 0.3f; // Reset when punching ends
         }
 
         if (animBool == true)
@@ -106,6 +115,13 @@ public class DamageCheckP2 : MonoBehaviour
         
     }
 
+    public void TriggerHitShake()
+    {
+        cinemachinePerlin.m_AmplitudeGain = shakeAmp;
+        cinemachinePerlin.m_FrequencyGain = shakeFreq;
+        hitShakeTimer = hitShakeDur;
+    }
+
     private void WaitCoupleSeconds()
     {
         
@@ -138,7 +154,7 @@ public class DamageCheckP2 : MonoBehaviour
     private IEnumerator HealthShakeCoroutine()
     {
         float elapsed = 0f;
-
+        TriggerHitShake();
         while (elapsed < healthshakeDuration)
         {
             float x = Random.Range(-shakeAmount, shakeAmount);
@@ -156,12 +172,13 @@ public class DamageCheckP2 : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         Debug.Log("Collision detected");
-        if (player2.isPunching == true && other.gameObject.tag == "Player1" && hasHit == false && punchTime <= 0)
+        if (player2.isPunching == true && other.CompareTag("Player1") && !hasHit && punchTime <= 0)
         {
 
             //game control
-            if (player1.isBlocking == false && hasHit == false)
+            if (player1.isBlocking == false)
             {
+                StartCoroutine(HealthShakeCoroutine());
                 audioSource.PlayOneShot(punchClip, 0.2f);
                 player1.player1Health -= 10;
                 play1Animator.SetBool("isHit", true);
@@ -179,8 +196,9 @@ public class DamageCheckP2 : MonoBehaviour
                 }
                 player2.isPunching = false;
             }
-            if (player1.isBlocking == true && hasHit == false)
+            if (player1.isBlocking == true)
             {
+                StartCoroutine(HealthShakeCoroutine());
                 audioSource.PlayOneShot(blockedpunchClip, 0.2f);
                 player1.player1Health -= 0.5f;
                 play1Animator.SetBool("isHit", true);
