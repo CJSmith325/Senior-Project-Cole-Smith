@@ -21,6 +21,8 @@ public class CharacterSelectManager : MonoBehaviour
     public AudioClip positiveSound;
     private AudioSource buttonSource;
     private NewSceneLoader loader;
+    public GameObject sas1;
+    public GameObject sas2;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +49,7 @@ public class CharacterSelectManager : MonoBehaviour
         {
             stringHold.characterOne = "Sasquatch";
             buttonSource.PlayOneShot(positiveSound);
+            sas1.SetActive(true);
             selectCount++;
             playerText.text = "Player  2";
             sasHold.SetActive(true);
@@ -55,6 +58,7 @@ public class CharacterSelectManager : MonoBehaviour
 
         if (selectCount == 1)
         {
+            sas2.SetActive(true);
             stringHold.characterTwo = "Sasquatch";
             selectCount++;
         }

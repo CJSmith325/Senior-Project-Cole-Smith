@@ -24,7 +24,7 @@ public class DamageCheckP2 : MonoBehaviour
     public Animator play1Animator;
 
 
-    private bool animBool;
+    public bool animBool;
 
     private float targetTime = 0.28f;
     private float punchTime = 0.9f;

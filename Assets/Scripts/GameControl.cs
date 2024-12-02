@@ -18,9 +18,12 @@ public class GameControl : MonoBehaviour
     private Color color1;
     private Color color2;
 
+    private NewSceneLoader loader;
+
     private void Start()
     {
-        timeLeft = 45;
+        loader = GameObject.FindAnyObjectByType<NewSceneLoader>().GetComponent<NewSceneLoader>();
+        timeLeft = 120;
         charHolder = FindAnyObjectByType<CharacterHolding>();
         playerOne.text = charHolder.characterOne;
         playerTwo.text = charHolder.characterTwo;
@@ -34,7 +37,8 @@ public class GameControl : MonoBehaviour
 
         if (timeLeft <= 0)
         {
-            SceneManager.LoadScene("GameOverScreen");
+            victoryText = "Time Expired!";
+            loader.TransitionToScene("GameOverScreen");
         }
 
         if (timeLeft <= 30)

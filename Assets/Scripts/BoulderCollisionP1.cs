@@ -19,6 +19,9 @@ public class BoulderCollisionP1 : MonoBehaviour
     public float shakeFrequency = 1f;  // Speed of the shake
     private bool hasContacted = false;
 
+    private DamageCheckP1 dmgp1;
+    private ParticleSystem rockParticles;
+
 
     private void Start()
     {
@@ -28,10 +31,15 @@ public class BoulderCollisionP1 : MonoBehaviour
         Debug.Log(virtualCamera);
         cinemachinePerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         Debug.Log(cinemachinePerlin);
+        dmgp1 = GameObject.FindAnyObjectByType<DamageCheckP1>().GetComponent<DamageCheckP1>();
+        //GameObject parentObject = GameObject.Find("Player2");
+        //rockParticles = parentObject.transform.Find("p2RockParticleSystem").gameObject.GetComponent<ParticleSystem>();
     }
 
     private void Update()
     {
+        
+
         if (shakeTimer > 0)
         {
             shakeTimer -= Time.deltaTime;
@@ -87,6 +95,9 @@ public class BoulderCollisionP1 : MonoBehaviour
         if (other.tag == "Player2" && hasContacted == false)
         {
             play2 = other.GetComponent<Player2Controller>();
+            play2Animator.SetBool("isHit", true);
+            //rockParticles.Play();
+            dmgp1.animBool = true;
             play2.player2Health -= 20;
             hasContacted = true;
             if (play2.player2Health <= 0)
