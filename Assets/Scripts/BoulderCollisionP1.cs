@@ -22,6 +22,8 @@ public class BoulderCollisionP1 : MonoBehaviour
     private DamageCheckP1 dmgp1;
     private ParticleSystem rockParticles;
 
+    private AudioSource rockSource;
+    
 
     private void Start()
     {
@@ -32,6 +34,7 @@ public class BoulderCollisionP1 : MonoBehaviour
         cinemachinePerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         Debug.Log(cinemachinePerlin);
         dmgp1 = GameObject.FindAnyObjectByType<DamageCheckP1>().GetComponent<DamageCheckP1>();
+        rockSource = this.gameObject.GetComponent<AudioSource>();
         //GameObject parentObject = GameObject.Find("Player2");
         //rockParticles = parentObject.transform.Find("p2RockParticleSystem").gameObject.GetComponent<ParticleSystem>();
     }
@@ -92,10 +95,31 @@ public class BoulderCollisionP1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.tag == "Player2" && hasContacted == false)
         {
             play2 = other.GetComponent<Player2Controller>();
             play2Animator.SetBool("isHit", true);
+
+            Transform particleSystemTransform = other.transform.Find("p2RockParticleSystem");
+            if (particleSystemTransform != null)
+            {
+                rockParticles = particleSystemTransform.GetComponent<ParticleSystem>();
+                if (rockParticles != null)
+                {
+                    rockParticles.Play();
+                    rockSource.Play();
+                }
+                else
+                {
+                    Debug.LogWarning("ParticleSystem component missing on p2RockParticleSystem.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("p2RockParticleSystem not found as a child of Player2.");
+            }
+            
             //rockParticles.Play();
             dmgp1.animBool = true;
             play2.player2Health -= 20;
@@ -123,7 +147,9 @@ public class BoulderCollisionP1 : MonoBehaviour
         
         else if (other.tag == "Ground" && hasContacted == false)
         {
+            rockSource.Play();
             Destroy(this.gameObject);
+            
         }
 
         else

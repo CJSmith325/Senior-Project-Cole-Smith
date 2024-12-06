@@ -36,11 +36,21 @@ public class CharacterSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (selectCount == 2)
+        //{
+        //    Destroy(GameObject.FindGameObjectWithTag("Music"));
+        //    loader.TransitionToScene(environmentHolder.environmentName);
+        //}
+    }
+
+    public void endofAnim()
+    {
         if (selectCount == 2)
         {
             Destroy(GameObject.FindGameObjectWithTag("Music"));
             loader.TransitionToScene(environmentHolder.environmentName);
         }
+            
     }
 
     public void AssignSasquatch()
@@ -50,6 +60,7 @@ public class CharacterSelectManager : MonoBehaviour
             stringHold.characterOne = "Sasquatch";
             buttonSource.PlayOneShot(positiveSound);
             sas1.SetActive(true);
+            sas1.GetComponent<Animator>().enabled = true;
             selectCount++;
             playerText.text = "Player  2";
             sasHold.SetActive(true);
@@ -59,6 +70,7 @@ public class CharacterSelectManager : MonoBehaviour
         if (selectCount == 1)
         {
             sas2.SetActive(true);
+            sas2.GetComponent<Animator>().enabled = true;
             stringHold.characterTwo = "Sasquatch";
             selectCount++;
         }

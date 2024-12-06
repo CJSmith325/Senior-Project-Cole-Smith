@@ -20,6 +20,7 @@ public class BoulderCollisionP2 : MonoBehaviour
     private bool hasContacted = false;
 
     private DamageCheckP2 dmgp2;
+    private ParticleSystem rockParticles;
 
     private void Start()
     {
@@ -89,6 +90,25 @@ public class BoulderCollisionP2 : MonoBehaviour
         {
             play1 = other.GetComponent<Player1Controller>();
             play1Animator.SetBool("isHit", true);
+
+            Transform particleSystemTransform = other.transform.Find("p1RockParticleSystem");
+            if (particleSystemTransform != null)
+            {
+                rockParticles = particleSystemTransform.GetComponent<ParticleSystem>();
+                if (rockParticles != null)
+                {
+                    rockParticles.Play();
+                }
+                else
+                {
+                    Debug.LogWarning("ParticleSystem component missing on p1RockParticleSystem.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("p1RockParticleSystem not found as a child of Player1.");
+            }
+
             dmgp2.animBool = true;
             play1.player1Health -= 20;
             hasContacted = true;

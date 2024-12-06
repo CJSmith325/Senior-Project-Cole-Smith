@@ -22,7 +22,7 @@ public class Player1Health : MonoBehaviour
         if (playerHealth.player1Attack < playerHealth.player1MaxAttack)
         {
             playerHealth.player1Attack = playerHealth.player1Attack + 5 * Time.deltaTime;
-            Debug.Log(playerHealth.player1Attack);
+            //Debug.Log(playerHealth.player1Attack);
         }
     }
 }

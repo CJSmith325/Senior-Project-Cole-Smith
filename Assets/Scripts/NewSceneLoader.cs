@@ -114,13 +114,15 @@ public class NewSceneLoader : MonoBehaviour
         // Ensure the canvas starts visible
         fadeCanvasGroup.alpha = 0;
         fadeCanvasGroup.gameObject.SetActive(true); // Activate the fade canvas
-
+        
         // Fade out (to black)
         yield return StartCoroutine(Fade(1));
 
         // Load the new scene
         SceneManager.LoadScene(sceneName);
+
         
+
         // Wait for one frame to ensure the scene is fully loaded
         yield return null;
         yield return null;
@@ -128,6 +130,7 @@ public class NewSceneLoader : MonoBehaviour
         yield return null;
         yield return null;
         fadeCanvasGroup = GameObject.FindFirstObjectByType<CanvasGroup>().GetComponent<CanvasGroup>();
+        
         fadeCanvasGroup.gameObject.SetActive(true);
 
         if (sceneName == "GameOverScreen")
