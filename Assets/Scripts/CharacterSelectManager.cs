@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class CharacterSelectManager : MonoBehaviour
@@ -48,6 +49,7 @@ public class CharacterSelectManager : MonoBehaviour
         if (selectCount == 2)
         {
             Destroy(GameObject.FindGameObjectWithTag("Music"));
+            loader.fadeCanvasGroup.GetComponent<Image>().raycastTarget = true;
             loader.TransitionToScene(environmentHolder.environmentName);
         }
             
@@ -72,6 +74,7 @@ public class CharacterSelectManager : MonoBehaviour
             sas2.SetActive(true);
             sas2.GetComponent<Animator>().enabled = true;
             stringHold.characterTwo = "Sasquatch";
+            sasHold.GetComponent<TextMeshProUGUI>().text = "Player 2 chose Sasquatch";
             selectCount++;
         }
     }

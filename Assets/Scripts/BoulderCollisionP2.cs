@@ -98,6 +98,7 @@ public class BoulderCollisionP2 : MonoBehaviour
                 if (rockParticles != null)
                 {
                     rockParticles.Play();
+                    play1.playRockSound();
                 }
                 else
                 {
@@ -134,6 +135,7 @@ public class BoulderCollisionP2 : MonoBehaviour
 
         else if (other.tag == "Ground" && hasContacted == false)
         {
+            play1.playRockSound();
             Destroy(this.gameObject);
         }
 

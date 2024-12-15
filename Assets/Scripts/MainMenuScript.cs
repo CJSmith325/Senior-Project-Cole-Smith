@@ -23,7 +23,7 @@ public class MainMenuScript : MonoBehaviour
         { 
             loader = GameObject.FindAnyObjectByType<NewSceneLoader>().GetComponent<NewSceneLoader>(); 
         }
-        loader.TransitionToScene("EnvironmentSelectScreen");
+        loader.LoadEnvironmentSelect();
     }
 
     public void InstructionsLoad()
@@ -32,7 +32,7 @@ public class MainMenuScript : MonoBehaviour
         {
             loader = GameObject.FindAnyObjectByType<NewSceneLoader>().GetComponent<NewSceneLoader>();
         }
-        loader.TransitionToScene("InstructionsandCredits");
+        loader.LoadInstructions();
 
     }
 

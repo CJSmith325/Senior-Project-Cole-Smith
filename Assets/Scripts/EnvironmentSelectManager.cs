@@ -20,33 +20,18 @@ public class EnvironmentSelectManager : MonoBehaviour
     public void AssignJungle()
     {
         environmentHolder.environmentName = "Jungle";
-        if (FindAnyObjectByType<CharacterHolding>() != null)
-        {
-            Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
-        }
-        buttonSource.PlayOneShot(positiveSound);
-        loader.TransitionToScene("CharacterSelectScreen");
+        loader.LoadCharacterSelect();
     }
     
     public void AssignUrban()
     {
         environmentHolder.environmentName = "Urban";
-        if (FindAnyObjectByType<CharacterHolding>() != null)
-        {
-            Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
-        }
-        buttonSource.PlayOneShot(positiveSound);
-        loader.TransitionToScene("CharacterSelectScreen");
+        loader.LoadCharacterSelect();
     }
 
     public void AssignDesert()
     {
         environmentHolder.environmentName = "Desert";
-        if (FindAnyObjectByType<CharacterHolding>() != null)
-        {
-            Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
-        }
-        buttonSource.PlayOneShot(positiveSound);
-        loader.TransitionToScene("CharacterSelectScreen");
+        loader.LoadCharacterSelect();
     }
 }

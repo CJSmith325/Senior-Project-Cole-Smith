@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
+using UnityEngine.Animations;
 
 
 public class Player1Controller : MonoBehaviour
@@ -38,15 +40,22 @@ public class Player1Controller : MonoBehaviour
     public AudioClip boulderWhoosh;
     public AudioClip jabWhoosh;
     public AudioClip crossWhoosh;
+
+    public AudioClip boulderClip;
+
     public AudioSource footStepSource;
     private float jumpTimer;
     private Material[] furMaterial;
     private SkinnedMeshRenderer skinnedMeshRenderer;
+
+    
+
     //private Rigidbody boulderRB;
     //private Vector3 boulderVector = new Vector3();
 
     private float footstepCooldown = 0.833f; // Cooldown between footstep sounds
     private float footstepTimer = 0f;
+    float reverseSpeed = -1.0f; // Define your reverse speed
 
     private void Start()
     {
@@ -67,6 +76,11 @@ public class Player1Controller : MonoBehaviour
             mat.color = new Color(Mathf.Clamp01(mat.color.r + 0.5f), mat.color.g, Mathf.Clamp01(mat.color.b - 0.5f), mat.color.a);
 
         }
+
+
+        
+
+
     }
 
     void Update()
@@ -101,8 +115,10 @@ public class Player1Controller : MonoBehaviour
             
             if (isPunching == false && isAttacking == false && footstepTimer <= 0f)
             {
+                
                 anim.SetBool("isIdling", false);
                 anim.SetBool("isWalking", true);
+                anim.SetFloat("speed", -1f);
                 footStepSource.Play();
                 footstepTimer = footstepCooldown;
             }
@@ -113,8 +129,10 @@ public class Player1Controller : MonoBehaviour
         {
             if (isPunching == false && isAttacking == false)
             {
+                
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isIdling", true);
+                anim.SetFloat("speed", 1f);
                 footStepSource.Stop();
             }
                 
@@ -126,6 +144,7 @@ public class Player1Controller : MonoBehaviour
 
             if (isPunching == false && isAttacking == false && footstepTimer <= 0f)
             {
+                anim.SetFloat("speed", 1f);
                 anim.SetBool("isIdling", false);
                 anim.SetBool("isWalking", true);
                 footStepSource.Play();
@@ -250,6 +269,11 @@ public class Player1Controller : MonoBehaviour
 
         transform.localScale = scale;
         
+    }
+
+    public void playRockSound()
+    {
+        footStepSource.PlayOneShot(boulderClip);
     }
 
     public IEnumerator BasicPunch()

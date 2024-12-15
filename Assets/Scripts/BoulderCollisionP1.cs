@@ -22,7 +22,7 @@ public class BoulderCollisionP1 : MonoBehaviour
     private DamageCheckP1 dmgp1;
     private ParticleSystem rockParticles;
 
-    private AudioSource rockSource;
+    
     
 
     private void Start()
@@ -34,7 +34,7 @@ public class BoulderCollisionP1 : MonoBehaviour
         cinemachinePerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         Debug.Log(cinemachinePerlin);
         dmgp1 = GameObject.FindAnyObjectByType<DamageCheckP1>().GetComponent<DamageCheckP1>();
-        rockSource = this.gameObject.GetComponent<AudioSource>();
+        
         //GameObject parentObject = GameObject.Find("Player2");
         //rockParticles = parentObject.transform.Find("p2RockParticleSystem").gameObject.GetComponent<ParticleSystem>();
     }
@@ -108,7 +108,8 @@ public class BoulderCollisionP1 : MonoBehaviour
                 if (rockParticles != null)
                 {
                     rockParticles.Play();
-                    rockSource.Play();
+                    play2.playRockSound();
+                    // play sound
                 }
                 else
                 {
@@ -147,7 +148,8 @@ public class BoulderCollisionP1 : MonoBehaviour
         
         else if (other.tag == "Ground" && hasContacted == false)
         {
-            rockSource.Play();
+            //play sound
+            play2.playRockSound();
             Destroy(this.gameObject);
             
         }

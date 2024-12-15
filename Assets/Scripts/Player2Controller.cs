@@ -35,10 +35,15 @@ public class Player2Controller : MonoBehaviour
     public AudioClip boulderWhoosh;
     public AudioClip jabWhoosh;
     public AudioClip crossWhoosh;
+
+    public AudioClip boulderClip;
+
     public AudioSource footStepSource;
     private float jumpTimer;
     private Material[] furMaterial;
     private SkinnedMeshRenderer skinnedMeshRenderer;
+
+   
 
     private float footstepCooldown = 0.833f; // Cooldown between footstep sounds
     private float footstepTimer = 0f;
@@ -97,6 +102,7 @@ public class Player2Controller : MonoBehaviour
             {
                 anim.SetBool("isIdling", false);
                 anim.SetBool("isWalking", true);
+                anim.SetFloat("speed", -1f);
                 footStepSource.Play();
                 footstepTimer = footstepCooldown;
             }
@@ -108,6 +114,7 @@ public class Player2Controller : MonoBehaviour
             {
                 anim.SetBool("isWalking", false);
                 anim.SetBool("isIdling", true);
+                anim.SetFloat("speed", 1f);
                 footStepSource.Stop();
             }
         }
@@ -118,6 +125,7 @@ public class Player2Controller : MonoBehaviour
 
            if (isPunching == false && isAttacking == false && footstepTimer <= 0f)
            {
+                anim.SetFloat("speed", 1f);
                 anim.SetBool("isIdling", false);
                 anim.SetBool("isWalking", true);
                 footStepSource.Play();
@@ -173,7 +181,7 @@ public class Player2Controller : MonoBehaviour
                 anim.SetBool("isJumpAttacking", true);
                 jumpTimer = 1.5f;
             }
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.O))
             {
                 anim.SetBool("isJumpAttacking", true);
                 jumpTimer = 1.5f;
@@ -205,13 +213,13 @@ public class Player2Controller : MonoBehaviour
             StartCoroutine(BasicPunch());
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && isPunching == false)
+        if (Input.GetKeyDown(KeyCode.O) && isPunching == false)
         {
             isPunching = true;
             StartCoroutine(CrossPunch());
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftBracket))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if (player2Attack >= 100f && isAttacking == false)
             {
@@ -235,6 +243,11 @@ public class Player2Controller : MonoBehaviour
         }
 
         transform.localScale = scale;
+    }
+
+    public void playRockSound()
+    {
+        footStepSource.PlayOneShot(boulderClip);
     }
 
     public IEnumerator BasicPunch()

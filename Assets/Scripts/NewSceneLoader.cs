@@ -6,7 +6,7 @@ using System.Collections;
 public class NewSceneLoader : MonoBehaviour
 {
     public static NewSceneLoader Instance; // Singleton instance
-    private CanvasGroup fadeCanvasGroup;            // Canvas group for fade effect
+    public CanvasGroup fadeCanvasGroup;            // Canvas group for fade effect
     public float fadeDuration = 1.0f;
     private AudioSource buttonPressing;
     public AudioClip positiveSound;
@@ -47,6 +47,7 @@ public class NewSceneLoader : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        fadeCanvasGroup.GetComponent<Image>().raycastTarget = true;
         buttonPressing.PlayOneShot(negativeSound);
         StartCoroutine(waitForButton());
         TransitionToScene("MainMenu");
@@ -54,6 +55,7 @@ public class NewSceneLoader : MonoBehaviour
 
     public void LoadFight()
     {
+        fadeCanvasGroup.GetComponent<Image>().raycastTarget = true;
         buttonPressing.PlayOneShot(positiveSound);
         StartCoroutine(waitForButton());
         TransitionToScene(FindAnyObjectByType<EnvironmentHolding>().environmentName);
@@ -62,6 +64,7 @@ public class NewSceneLoader : MonoBehaviour
 
     public void RematchFighters()
     {
+        fadeCanvasGroup.GetComponent<Image>().raycastTarget = true;
         buttonPressing.PlayOneShot(positiveSound);
         StartCoroutine(waitForButton());
         TransitionToScene("Jungle");
@@ -69,6 +72,7 @@ public class NewSceneLoader : MonoBehaviour
 
     public void LoadCharacterSelect()
     {
+        fadeCanvasGroup.GetComponent<Image>().raycastTarget = true;
         if (FindAnyObjectByType<CharacterHolding>() != null)
         {
             Destroy(FindAnyObjectByType<CharacterHolding>().gameObject);
@@ -80,6 +84,7 @@ public class NewSceneLoader : MonoBehaviour
 
     public void LoadEnvironmentSelect()
     {
+        fadeCanvasGroup.GetComponent<Image>().raycastTarget = true;
         if (FindAnyObjectByType<EnvironmentHolding>() != null)
         {
             Destroy(FindAnyObjectByType<EnvironmentHolding>().gameObject);
@@ -92,6 +97,7 @@ public class NewSceneLoader : MonoBehaviour
 
     public void LoadInstructions()
     {
+        fadeCanvasGroup.GetComponent<Image>().raycastTarget = true;
         buttonPressing.PlayOneShot(negativeSound);
         StartCoroutine(waitForButton());
         TransitionToScene("InstructionsandCredits");
@@ -99,6 +105,7 @@ public class NewSceneLoader : MonoBehaviour
 
     public void LeaveGame()
     {
+        fadeCanvasGroup.GetComponent<Image>().raycastTarget = true;
         buttonPressing.PlayOneShot(negativeSound);
         StartCoroutine(waitForButton());
         Application.Quit();
